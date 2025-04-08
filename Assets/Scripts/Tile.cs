@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour
     public Image symbolImage;
     public GameObject highlightBorder;
 
-    public enum SymbolType {Circle, Square};
+    public enum SymbolType { Circle, Square, Triangle };
     public SymbolType currentSymbol;
 
     public void SetSymbol(Sprite sprite, SymbolType type)
