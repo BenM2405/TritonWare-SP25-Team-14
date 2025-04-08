@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "TritonWare SP25.sln"
+    "dotnet.defaultSolution": "TritonWare-SP25-Team-14.sln"
 }
