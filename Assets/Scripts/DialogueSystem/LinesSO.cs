@@ -1,0 +1,184 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "LinesSO", menuName = "ScriptableObjects/DialogueSystem/LinesSO", order = 2)]
+public class LinesSO : ScriptableObject
+{
+    // allow input of raw text
+    // private methods to format it for scriptSO
+    // public methods to run test format, and add method to allow scriptSO
+
+    [TextArea(15, 20)]
+    [SerializeField] private string rawText = "";
+    [SerializeField] private List<CharacterLine> formattedScript = new List<CharacterLine>();
+    [SerializeField] private List<CharacterSO> characters;
+    private int lineIndex = 0;
+
+    public enum LineCommand
+    {
+        // TODO: Insert possible types of commands here
+        Action_END,
+        Action_WAIT,
+        Action_CONTINUE,
+        Format_THINKING,
+        Format_YELLING,
+        EMPTY
+    }
+
+    public void LoadLines()
+    {
+        Debug.Log("Formatting script...");
+        format(rawText);
+        if (formattedScript == null)
+        {
+            Debug.LogError("Formatted script not found!");
+        }
+    }
+
+    public CharacterLine NextLine()
+    {
+        if (lineIndex > formattedScript.Count)
+        {
+            return null;
+        }
+        return formattedScript[lineIndex++];
+    }
+
+    public void SetLineIndex(int index)
+    {
+        lineIndex = index;
+    }
+
+    private void format(string rawText)
+    {
+        formattedScript.Clear();
+
+        if (rawText == null)
+        {
+            Debug.LogError("No raw text found!");
+        }
+
+        Debug.Log("Loading raw lines...");
+        string[] rawTextLines = rawText.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string line in rawTextLines) { Debug.Log(line); }
+        CharacterSO previousCharacter = null;
+        for (int i = 0; i < rawTextLines.Length; i++)
+        {
+            CharacterLine nextCharacterLine = new CharacterLine();
+
+            string[] temp = rawTextLines[i].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+            string rawDialogue;
+            if (temp.Length == 2)
+            {
+                string characterName = temp[0];
+                rawDialogue = temp[1];
+
+                // Find CharacterSO that matches the raw text
+                foreach (CharacterSO character in characters)
+                {
+                    if (characterName == character.Name)
+                    {
+                        nextCharacterLine.Character = character;
+                        previousCharacter = character;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                if (previousCharacter == null)
+                {
+                    Debug.LogError("Unable to find a character!");
+                }
+                nextCharacterLine.Character = previousCharacter;
+                rawDialogue = temp[0];
+            }
+
+
+            // Adds the lines or commands from the rest of the raw dialogue to the CharacterLine object
+            string[] splitText = rawDialogue.Split(new Char[] { '{', '}', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string split in splitText)
+            {
+                switch (split)
+                {
+                    // TODO: Insert formats for the commands here
+
+                    case "END":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Action_END);
+                        nextCharacterLine.lines.Add(null);
+                        break;
+
+                    case "WAIT":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Action_WAIT);
+                        nextCharacterLine.lines.Add(null);
+                        break;
+
+                    case "CONTINUE":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Action_CONTINUE);
+                        nextCharacterLine.lines.Add(null);
+                        break;
+
+                    case "THINKING":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Format_THINKING);
+                        nextCharacterLine.lines.Add(null);
+                        break;
+
+                    case "YELLING":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Format_YELLING);
+                        nextCharacterLine.lines.Add(null);
+                        break;
+
+                    default:
+                        nextCharacterLine.lineCommands.Add(LineCommand.EMPTY);
+                        nextCharacterLine.lines.Add(split.Trim() + " ");
+                        break;
+                }
+            }
+            formattedScript.Add(nextCharacterLine);
+        }
+        Debug.Log("Script formatted!");
+    }
+
+    public void debugLines()
+    {
+        Debug.Log(formattedScript);
+        for (int i = 0; i < formattedScript.Count; i++)
+        {
+            CharacterLine currentLine = formattedScript[i];
+            Debug.Log("Character: " + currentLine.Character.Name);
+
+            for (int j = 0; j < currentLine.lines.Count; j++)
+            {
+                string dialogue = currentLine.lines[j];
+                if (dialogue == null)
+                {
+                    Debug.Log("Command: " + currentLine.lineCommands[j].ToString());
+                }
+                else
+                {
+                    Debug.Log('"' + dialogue + '"');
+                }
+            }
+        }
+    }
+
+    public class CharacterLine
+    {
+        public CharacterSO Character;
+        public List<string> lines;
+        public List<LineCommand> lineCommands;
+
+        public CharacterLine()
+        {
+            Character = null;
+            lines = new List<string>();
+            lineCommands = new List<LineCommand>();
+        }
+
+
+    }
+}
