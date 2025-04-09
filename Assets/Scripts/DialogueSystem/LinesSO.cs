@@ -21,12 +21,12 @@ public class LinesSO : ScriptableObject
     public enum LineCommand
     {
         // TODO: Insert possible types of commands here
-        Action_END,
-        Action_WAIT,
-        Action_CONTINUE,
-        Format_THINKING,
-        Format_YELLING,
-        EMPTY
+        Action_WAIT,        // wait a brief period for a slight pause
+        Action_CONTINUE,    // immediate move to next segment, regardless of player input
+        Format_THINK,       // to show the person thinking (i.e. italics)
+        Format_YELL,        // to show the person yelling (i.e. bold)
+        Format_NORMAL,      // to show the person normal speaking (i.e. resets italics and bold)
+        EMPTY               // empty in case a dialogue line exists
     }
 
     public void LoadLines()
@@ -39,9 +39,9 @@ public class LinesSO : ScriptableObject
         }
     }
 
-    public CharacterLine NextLine()
+    public CharacterLine NextSegment()
     {
-        if (lineIndex > formattedScript.Count)
+        if (lineIndex >= formattedScript.Count)
         {
             return null;
         }
@@ -107,11 +107,6 @@ public class LinesSO : ScriptableObject
                 {
                     // TODO: Insert formats for the commands here
 
-                    case "END":
-                        nextCharacterLine.lineCommands.Add(LineCommand.Action_END);
-                        nextCharacterLine.lines.Add(null);
-                        break;
-
                     case "WAIT":
                         nextCharacterLine.lineCommands.Add(LineCommand.Action_WAIT);
                         nextCharacterLine.lines.Add(null);
@@ -122,13 +117,18 @@ public class LinesSO : ScriptableObject
                         nextCharacterLine.lines.Add(null);
                         break;
 
-                    case "THINKING":
-                        nextCharacterLine.lineCommands.Add(LineCommand.Format_THINKING);
+                    case "THINK":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Format_THINK);
                         nextCharacterLine.lines.Add(null);
                         break;
 
-                    case "YELLING":
-                        nextCharacterLine.lineCommands.Add(LineCommand.Format_YELLING);
+                    case "YELL":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Format_YELL);
+                        nextCharacterLine.lines.Add(null);
+                        break;
+
+                    case "NORMAL":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Format_NORMAL);
                         nextCharacterLine.lines.Add(null);
                         break;
 

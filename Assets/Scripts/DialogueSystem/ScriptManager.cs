@@ -1,18 +1,33 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.UI;
 
 public class ScriptManager : MonoBehaviour
 {
     [SerializeField] private LinesSO scriptLines;
-    private CharacterSO currentCharacter;
+    [SerializeField] private TextMeshProUGUI characterName;
+    [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private Image characterPortrait;
+    [SerializeField] private Image colorAccent;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Animator animator;
+    private FMOD.Studio.EventInstance characterTalkingEvent;
+    [SerializeField] private float characterTextSpeed = 20f; // Formula: (How many seconds per letter printed) = 1 / characterTextSpeed
+    LinesSO.CharacterLine nextSegment;
+
     private bool isSceneRunning = false;
+
+    // TODO: Have the dialogue pop up and pop down when scene is playing / ending, implement sprite animations for talking, Lerp or Slerp colors to transition between color accents
+    // maybe implementing sound talking sfx swaps, speed increases / decreases, who knows lol
 
     void Start()
     {
         loadLines();
-        debugLines();
+        animator.SetBool("isSceneRunning", false);
     }
 
     public void SwapScripts(LinesSO linesSO)
@@ -20,28 +35,39 @@ public class ScriptManager : MonoBehaviour
         scriptLines = linesSO;
     }
 
-    // call NextLine (returns Character line) until it returns null (end of script)
-    // send the next line into display handling
-    // if the call returns null, call end scene handling (whether it transfers to gameplay or another scene idk)
-
+    [ContextMenu("Start Script")]
     public void StartScript()
     {
         if (!isSceneRunning)
         {
             isSceneRunning = true;
-            NextLine();
+            animator.SetBool("isSceneRunning", true);
+            scriptLines.SetLineIndex(0);
+            NextSegment();
         }
         else
         {
-            Debug.LogError("Scene is already running! Use NextLine()");
+            Debug.LogError("Scene is already running! Use NextSegment()");
         }
     }
 
-    public void NextLine()
+    public void NextSegment()
     {
         if (isSceneRunning)
         {
-            // load next line
+            //Debug.Log("Loading next segment!");
+            DisableContinueButton();
+            StopAllCoroutines();
+            nextSegment = scriptLines.NextSegment();
+            if (nextSegment != null)
+            {
+                LoadCharacterData(nextSegment.Character);
+                ReadLines();
+            }
+            else
+            {
+                EndDialogue();
+            }
         }
         else
         {
@@ -49,16 +75,112 @@ public class ScriptManager : MonoBehaviour
         }
     }
 
+    public void ReadLines()
+    {
+        //Debug.Log("Reading lines...");
+        characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        StopAllCoroutines();
+        characterTalkingEvent.start();
+        StartCoroutine(TypeSentence());
+    }
 
+    public void EndDialogue()
+    {
+        isSceneRunning = false;
+        animator.SetBool("isSceneRunning", false);
+        Debug.Log("Dialogue has ended!");
+    }
 
+    private void LoadCharacterData(CharacterSO character)
+    {
+        //Debug.Log("Loading character data...");
+        characterName.text = character.Name;
+        characterPortrait.sprite = character.Sprite;
+        colorAccent.color = character.ColorAccent;
+        characterTalkingEvent = FMODUnity.RuntimeManager.CreateInstance(character.talkingSFX);
+    }
 
+    IEnumerator TypeSentence()
+    {
+        dialogueText.text = "";
+        int lineIndex = 0;
+        string sentence;
+        while (true)
+        {
+            do
+            {
+                if (lineIndex >= nextSegment.lines.Count)
+                {
+                    Debug.Log("Reached end of segment!");
+                    yield return new WaitForSeconds(0.5f);  // Trying to prevent popping noise from occurring by allowing safeStop before stopping
+                    characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                    EnableContinueButton();
+                    yield break;
+                }
 
+                //Debug.Log("Reading line " + lineIndex);
+                sentence = nextSegment.lines[lineIndex];
+                if (sentence == null)
+                {
+                    //Debug.Log("Dialogue not found, running command!");
+                    yield return runLineCommand(nextSegment.lineCommands[lineIndex]);
+                }
+                lineIndex++;
+            } while (sentence == null);
+            //Debug.Log("Printing line dialogue " + lineIndex);
+            characterTalkingEvent.setParameterByName("safeStop", 0);
+            foreach (char letter in sentence)
+            {
+                yield return new WaitForSeconds(1 / characterTextSpeed);
+                dialogueText.text += letter;
+            }
+            characterTalkingEvent.setParameterByName("safeStop", 1);
+        }
+    }
 
+    private object runLineCommand(LinesSO.LineCommand lineCommand)
+    {
+        // TODO: Special command logic handled here
+        Debug.Log(lineCommand.ToString());
 
+        switch (lineCommand)
+        {
+            case LinesSO.LineCommand.Action_WAIT:
+                return new WaitForSeconds(1f);
 
+            case LinesSO.LineCommand.Action_CONTINUE:
+                StopAllCoroutines();
+                nextSegment = scriptLines.NextSegment();
+                LoadCharacterData(nextSegment.Character);
+                characterTalkingEvent.start();
+                StartCoroutine(TypeSentence());
+                break;
 
+            case LinesSO.LineCommand.Format_THINK:
+                dialogueText.fontStyle = FontStyles.Italic;
+                break;
 
+            case LinesSO.LineCommand.Format_YELL:
+                dialogueText.fontStyle = FontStyles.Bold;
+                break;
 
+            case LinesSO.LineCommand.Format_NORMAL:
+                dialogueText.fontStyle = FontStyles.Normal;
+                break;
+        }
+
+        return null;
+    }
+
+    private void DisableContinueButton()
+    {
+        continueButton.GetComponent<ContinueButton>().SetActive(false);
+    }
+
+    private void EnableContinueButton()
+    {
+        continueButton.GetComponent<ContinueButton>().SetActive(true);
+    }
 
     [ContextMenu("Debug Lines")]
     private void debugLines()
@@ -66,7 +188,6 @@ public class ScriptManager : MonoBehaviour
         scriptLines.debugLines();
     }
 
-    [ContextMenu("Load Lines")]
     private void loadLines()
     {
         scriptLines.LoadLines();

@@ -7,6 +7,6 @@ public class CharacterSO : ScriptableObject
 {
     public string Name;
     public Sprite Sprite;   // TODO: maybe add animation capabilities to this
-                            // TODO: Insert FMOD SFX Event for speaking sfx
-    public Sprite ColorAccent;
+    public Color ColorAccent;
+    public string talkingSFX;
 }
