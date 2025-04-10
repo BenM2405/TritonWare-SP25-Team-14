@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TestCharacter1SO
   m_EditorClassIdentifier: 
   Name: Test Character 1
-  Sprite: {fileID: 21300000, guid: 748ae8b33df036b46a86e0387f1602cf, type: 3}
+  Sprite: {fileID: 1604607921, guid: 374ff3822dd7cc74e8398ca5dbf9bbe9, type: 3}
   ColorAccent: {r: 1, g: 0, b: 0, a: 1}
   talkingSFX: event:/sfx/dialogue/test_talking_sfx
+  PortraitSpriteAnimatorController: {fileID: 9100000, guid: 9fb98baee9b404a46a66a9389e81ca46, type: 2}

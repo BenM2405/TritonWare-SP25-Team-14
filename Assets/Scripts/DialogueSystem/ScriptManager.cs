@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Animations;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
@@ -17,9 +19,11 @@ public class ScriptManager : MonoBehaviour
     [SerializeField] private Animator animator;
     private FMOD.Studio.EventInstance characterTalkingEvent;
     [SerializeField] private float characterTextSpeed = 20f; // Formula: (How many seconds per letter printed) = 1 / characterTextSpeed
-    LinesSO.CharacterLine nextSegment;
+    private LinesSO.CharacterLine nextSegment;
 
     private bool isSceneRunning = false;
+    private bool isSpeaking = false;
+    private int state = 0;
 
     // TODO: Have the dialogue pop up and pop down when scene is playing / ending, implement sprite animations for talking, Lerp or Slerp colors to transition between color accents
     // maybe implementing sound talking sfx swaps, speed increases / decreases, who knows lol
@@ -95,9 +99,18 @@ public class ScriptManager : MonoBehaviour
     {
         //Debug.Log("Loading character data...");
         characterName.text = character.Name;
-        characterPortrait.sprite = character.Sprite;
         colorAccent.color = character.ColorAccent;
         characterTalkingEvent = FMODUnity.RuntimeManager.CreateInstance(character.talkingSFX);
+        if (character.PortraitSpriteAnimatorController != null)
+        {
+            characterPortrait.GetComponent<Animator>().runtimeAnimatorController = character.PortraitSpriteAnimatorController;
+            characterPortrait.GetComponent<Animator>().SetInteger("state", state);
+        }
+        else
+        {
+            characterPortrait.GetComponent<Animator>().runtimeAnimatorController = null;
+        }
+        characterPortrait.sprite = character.Sprite;
     }
 
     IEnumerator TypeSentence()
@@ -129,12 +142,14 @@ public class ScriptManager : MonoBehaviour
             } while (sentence == null);
             //Debug.Log("Printing line dialogue " + lineIndex);
             characterTalkingEvent.setParameterByName("safeStop", 0);
+            characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", true);
             foreach (char letter in sentence)
             {
                 yield return new WaitForSeconds(1 / characterTextSpeed);
                 dialogueText.text += letter;
             }
             characterTalkingEvent.setParameterByName("safeStop", 1);
+            characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", false);
         }
     }
 
@@ -157,18 +172,26 @@ public class ScriptManager : MonoBehaviour
                 break;
 
             case LinesSO.LineCommand.Format_THINK:
+                state = 3;
                 dialogueText.fontStyle = FontStyles.Italic;
                 break;
 
+            case LinesSO.LineCommand.Format_SAD:
+                state = 2;
+                dialogueText.fontStyle = FontStyles.Normal;
+                break;
+
             case LinesSO.LineCommand.Format_YELL:
+                state = 1;
                 dialogueText.fontStyle = FontStyles.Bold;
                 break;
 
             case LinesSO.LineCommand.Format_NORMAL:
+                state = 0;
                 dialogueText.fontStyle = FontStyles.Normal;
                 break;
         }
-
+        characterPortrait.GetComponent<Animator>().SetInteger("state", state);
         return null;
     }
 

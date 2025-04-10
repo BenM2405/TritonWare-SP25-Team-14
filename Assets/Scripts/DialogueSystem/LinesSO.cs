@@ -24,6 +24,7 @@ public class LinesSO : ScriptableObject
         Action_WAIT,        // wait a brief period for a slight pause
         Action_CONTINUE,    // immediate move to next segment, regardless of player input
         Format_THINK,       // to show the person thinking (i.e. italics)
+        Format_SAD,         // to show the person sad (normal text but may change sprite)
         Format_YELL,        // to show the person yelling (i.e. bold)
         Format_NORMAL,      // to show the person normal speaking (i.e. resets italics and bold)
         EMPTY               // empty in case a dialogue line exists
@@ -124,6 +125,11 @@ public class LinesSO : ScriptableObject
 
                     case "YELL":
                         nextCharacterLine.lineCommands.Add(LineCommand.Format_YELL);
+                        nextCharacterLine.lines.Add(null);
+                        break;
+
+                    case "SAD":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Format_SAD);
                         nextCharacterLine.lines.Add(null);
                         break;
 
