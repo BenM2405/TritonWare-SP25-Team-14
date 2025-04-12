@@ -26,6 +26,17 @@ public class PuzzleManager : MonoBehaviour
         HandleSwap();
     }
 
+    System.Collections.IEnumerator RegeneratePuzzleAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        selectedPos = new Vector2Int(0,0);
+        secondselectedPos = null;
+
+        InitializeBalancedGrids();
+        HighlightSelected();
+    }
+
 
     void AssignPlayerTiles()
     {
@@ -189,6 +200,7 @@ public class PuzzleManager : MonoBehaviour
         if (CheckIfSolved())
         {
             Debug.Log("Puzzle Solved!");
+            StartCoroutine(RegeneratePuzzleAfterDelay(2f));
         }
     }
 

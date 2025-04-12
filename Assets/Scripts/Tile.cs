@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour
 {
     public Vector2Int gridPos;
     public Image symbolImage;
-    public GameObject highlightBorder;
+    public GameObject highlightObject;
 
     public enum SymbolType {Circle, Square};
     public SymbolType currentSymbol;
@@ -20,9 +20,9 @@ public class Tile : MonoBehaviour
 
     public void SetHighlight(bool on)
     {
-        if (highlightBorder != null)
+        if (highlightObject != null)
         {
-            highlightBorder.SetActive(on);
+            highlightObject.SetActive(on);
         }
     }
 }
