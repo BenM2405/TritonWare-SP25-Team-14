@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
-    public Tile[,] tiles = new Tile[2,2];
-    public Tile[,] targetTiles = new Tile[2,2];
+    public int gridWidth = 3;
+    public int gridHeight = 3;
+
+    public Tile[,] tiles;
+    public Tile[,] targetTiles;
     public Vector2Int selectedPos = new Vector2Int(0,0);
     private Vector2Int? secondselectedPos = null;
 
@@ -14,6 +17,18 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
+        ConfigureGrid(gridWidth, gridHeight);
+    }
+
+    public void ConfigureGrid(int width, int height)
+    {
+        gridWidth = width;
+        gridHeight = height;
+
+        tiles = new Tile[gridWidth, gridHeight];
+        targetTiles = new Tile[gridWidth, gridHeight];
+
+        EnableRelevantTiles();
         AssignPlayerTiles();
         AssignTargetTiles();
         InitializeBalancedGrids();
@@ -37,12 +52,32 @@ public class PuzzleManager : MonoBehaviour
         HighlightSelected();
     }
 
+    void EnableRelevantTiles()
+    {
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                string playerName = $"Tile_{x}_{y}";
+                string targetName = $"TargetTile_{x}_{y}";
+
+                GameObject playerTile = GameObject.Find(playerName);
+                GameObject targetTile = GameObject.Find(targetName);
+
+                bool shouldBeActive = (x < gridWidth && y < gridHeight);
+
+                if (playerTile != null) playerTile.SetActive(shouldBeActive);
+                if (targetTile != null) targetTile.SetActive(shouldBeActive);
+            }
+        }
+    }
+
 
     void AssignPlayerTiles()
     {
-        for (int x = 0; x < 2; x++)
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = 0; y < 2; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
                 string objName = $"Tile_{x}_{y}";
                 GameObject tileObj = GameObject.Find(objName);
@@ -53,14 +88,8 @@ public class PuzzleManager : MonoBehaviour
                     continue;
                 }
 
+                tileObj.SetActive(true);
                 Tile tile = tileObj.GetComponent<Tile>();
-
-                if (tile == null)
-                {
-                    Debug.LogError($"Tile.cs is missing on: {objName}");
-                    continue;
-                }
-
                 tile.gridPos = new Vector2Int(x, y);
                 tiles[x, y] = tile;
             }
@@ -70,9 +99,9 @@ public class PuzzleManager : MonoBehaviour
 
     void AssignTargetTiles()
     {
-        for (int x = 0; x < 2; x++)
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = 0; y < 2; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
                 string objName = $"TargetTile_{x}_{y}";
                 GameObject tileObj = GameObject.Find(objName);
@@ -85,13 +114,13 @@ public class PuzzleManager : MonoBehaviour
 
     void InitializeBalancedGrids()
     {
-        List<Tile.SymbolType> symbols = new List<Tile.SymbolType>
+        int total = gridWidth * gridHeight;
+        List<Tile.SymbolType> symbols = new List<Tile.SymbolType>();
+
+        for (int i = 0; i < total; i++)
         {
-            Tile.SymbolType.Circle,
-            Tile.SymbolType.Circle,
-            Tile.SymbolType.Square,
-            Tile.SymbolType.Square
-        };
+            symbols.Add(i % 2 == 0 ? Tile.SymbolType.Circle : Tile.SymbolType.Square);
+        }
 
         List<Tile.SymbolType> playerSymbols;
         List<Tile.SymbolType> targetSymbols;
@@ -107,11 +136,11 @@ public class PuzzleManager : MonoBehaviour
         } while (AreLayoutsEqual(playerSymbols, targetSymbols));
 
         int index = 0;
-        for (int x = 0; x < 2; x++)
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = 0; y < 2; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
-                Tile.SymbolType type = playerSymbols[index];
+                var type = playerSymbols[index];
                 Sprite sprite = (type == Tile.SymbolType.Circle) ? circleSprite : squareSprite;
                 tiles[x, y].SetSymbol(sprite, type);
                 index++;
@@ -119,11 +148,11 @@ public class PuzzleManager : MonoBehaviour
         }
 
         index = 0;
-        for (int x = 0; x < 2; x++)
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = 0; y < 2; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
-                Tile.SymbolType type = targetSymbols[index];
+                var type = targetSymbols[index];
                 Sprite sprite = (type == Tile.SymbolType.Circle) ? circleSprite : squareSprite;
                 targetTiles[x, y].SetSymbol(sprite, type);
                 index++;
@@ -200,14 +229,14 @@ public class PuzzleManager : MonoBehaviour
         if (CheckIfSolved())
         {
             Debug.Log("Puzzle Solved!");
-            StartCoroutine(RegeneratePuzzleAfterDelay(2f));
+            StartCoroutine(RegeneratePuzzleAfterDelay(1f));
         }
     }
 
     void HighlightSelected(){
-        for (int x = 0; x < 2; x++)
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = 0; y < 2; y++) 
+            for (int y = 0; y < gridHeight; y++) 
             {
                 tiles[x, y].SetHighlight((selectedPos == new Vector2Int(x,y)));
             }
@@ -216,7 +245,7 @@ public class PuzzleManager : MonoBehaviour
 
     bool IsValidPosition(Vector2Int pos)
     {
-        return pos.x >= 0 && pos.x < 2 && pos.y >= 0 && pos.y < 2;
+        return pos.x >= 0 && pos.x < gridWidth && pos.y >= 0 && pos.y < gridHeight;
     }
 
     bool AreAdjacent(Vector2Int a, Vector2Int b)
@@ -226,9 +255,9 @@ public class PuzzleManager : MonoBehaviour
 
     bool CheckIfSolved()
     {
-        for (int x = 0; x < 2; x++)
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = 0; y < 2; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
                 if (tiles[x, y].currentSymbol != targetTiles[x, y].currentSymbol)
                 {
