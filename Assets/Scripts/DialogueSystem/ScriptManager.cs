@@ -1,11 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Animations;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class ScriptManager : MonoBehaviour
@@ -17,6 +12,7 @@ public class ScriptManager : MonoBehaviour
     [SerializeField] private Image colorAccent;
     [SerializeField] private Button continueButton;
     [SerializeField] private Animator animator;
+    [SerializeField] private TMP_InputField inputField;
     private FMOD.Studio.EventInstance characterTalkingEvent;
     [SerializeField] private float characterTextSpeed = 20f; // Formula: (How many seconds per letter printed) = 1 / characterTextSpeed
     private LinesSO.CharacterLine nextSegment;
@@ -45,6 +41,7 @@ public class ScriptManager : MonoBehaviour
         if (!isSceneRunning)
         {
             isSceneRunning = true;
+            loadLines();
             animator.SetBool("isSceneRunning", true);
             scriptLines.SetLineIndex(0);
             NextSegment();
@@ -91,6 +88,10 @@ public class ScriptManager : MonoBehaviour
     public void EndDialogue()
     {
         isSceneRunning = false;
+        EnableContinueButton();
+        StopAllCoroutines();
+        dialogueText.fontStyle = FontStyles.Normal;
+        characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         animator.SetBool("isSceneRunning", false);
         Debug.Log("Dialogue has ended!");
     }
@@ -213,6 +214,7 @@ public class ScriptManager : MonoBehaviour
 
     private void loadLines()
     {
+        scriptLines.rawText = inputField.text;
         scriptLines.LoadLines();
     }
 }

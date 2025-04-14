@@ -1,12 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
-    public Tile[,] tiles = new Tile[2,2];
-    public Tile[,] targetTiles = new Tile[2,2];
-    public Vector2Int selectedPos = new Vector2Int(0,0);
+    public Tile[,] tiles = new Tile[2, 2];
+    public Tile[,] targetTiles = new Tile[2, 2];
+    public Vector2Int selectedPos = new Vector2Int(0, 0);
     private Vector2Int? secondselectedPos = null;
 
     public Sprite circleSprite;
@@ -66,7 +65,7 @@ public class PuzzleManager : MonoBehaviour
                 string objName = $"TargetTile_{x}_{y}";
                 GameObject tileObj = GameObject.Find(objName);
                 Tile tile = tileObj.GetComponent<Tile>();
-                tile.gridPos = new Vector2Int(x,y);
+                tile.gridPos = new Vector2Int(x, y);
                 targetTiles[x, y] = tile;
             }
         }
@@ -119,7 +118,7 @@ public class PuzzleManager : MonoBehaviour
             }
         }
     }
-    
+
     void ShuffleList(List<Tile.SymbolType> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -177,7 +176,8 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    void SwapTiles(Vector2Int a, Vector2Int b){
+    void SwapTiles(Vector2Int a, Vector2Int b)
+    {
         Tile tileA = tiles[a.x, a.y];
         Tile tileB = tiles[b.x, b.y];
 
@@ -192,12 +192,13 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    void HighlightSelected(){
+    void HighlightSelected()
+    {
         for (int x = 0; x < 2; x++)
         {
-            for (int y = 0; y < 2; y++) 
+            for (int y = 0; y < 2; y++)
             {
-                tiles[x, y].SetHighlight((selectedPos == new Vector2Int(x,y)));
+                tiles[x, y].SetHighlight((selectedPos == new Vector2Int(x, y)));
             }
         }
     }
@@ -209,7 +210,7 @@ public class PuzzleManager : MonoBehaviour
 
     bool AreAdjacent(Vector2Int a, Vector2Int b)
     {
-        return (Mathf.Abs(a.x-b.x) + Mathf.Abs(a.y-b.y)) == 1;
+        return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y)) == 1;
     }
 
     bool CheckIfSolved()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +7,7 @@ public class Tile : MonoBehaviour
     public Image symbolImage;
     public GameObject highlightBorder;
 
-    public enum SymbolType {Circle, Square};
+    public enum SymbolType { Circle, Square };
     public SymbolType currentSymbol;
 
     public void SetSymbol(Sprite sprite, SymbolType type)

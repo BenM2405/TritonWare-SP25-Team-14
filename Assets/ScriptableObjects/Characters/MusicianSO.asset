@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087b73eefa4785443b35079d6cc5388a, type: 3}
+  m_Name: MusicianSO
+  m_EditorClassIdentifier: 
+  Name: Musician
+  Sprite: {fileID: 21300000, guid: 99b92378f03a39147a2cfad81d78a8f3, type: 3}
+  ColorAccent: {r: 1, g: 0, b: 0, a: 0}
+  talkingSFX: event:/sfx/dialogue/test_talking_sfx
+  PortraitSpriteAnimatorController: {fileID: 0}

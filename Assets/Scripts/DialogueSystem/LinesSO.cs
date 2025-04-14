@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LinesSO", menuName = "ScriptableObjects/DialogueSystem/LinesSO", order = 2)]
@@ -13,7 +10,7 @@ public class LinesSO : ScriptableObject
     // public methods to run test format, and add method to allow scriptSO
 
     [TextArea(15, 20)]
-    [SerializeField] private string rawText = "";
+    [SerializeField] public string rawText = "";
     [SerializeField] private List<CharacterLine> formattedScript = new List<CharacterLine>();
     [SerializeField] private List<CharacterSO> characters;
     private int lineIndex = 0;
