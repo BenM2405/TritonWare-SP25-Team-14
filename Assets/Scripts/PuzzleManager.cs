@@ -15,6 +15,10 @@ public class PuzzleManager : MonoBehaviour
     public Sprite circleSprite;
     public Sprite squareSprite;
 
+    public TMPro.TextMeshProUGUI parText;
+    public TMPro.TextMeshProUGUI moveText;
+    public int playerMoves = 0;
+
     void Start()
     {
         ConfigureGrid(gridWidth, gridHeight);
@@ -47,6 +51,8 @@ public class PuzzleManager : MonoBehaviour
 
         selectedPos = new Vector2Int(0,0);
         secondselectedPos = null;
+        playerMoves = 0;
+        moveText.text = $"Moves: {0}";
 
         InitializeBalancedGrids();
         HighlightSelected();
@@ -158,6 +164,23 @@ public class PuzzleManager : MonoBehaviour
                 index++;
             }
         }
+        ParCalculator solver = FindObjectOfType<ParCalculator>();
+
+        if (solver == null)
+        {
+            Debug.LogError("ParCalc not found in scene");
+        }
+
+        if (parText == null)
+        {
+            Debug.LogWarning("partext not assigned in inspector");
+        }
+        int par = solver.CalculatePar(tiles, targetTiles) + 1;
+
+        if (parText != null)
+        {
+            parText.text = $"Par: {par}";
+        }
     }
     
     void ShuffleList(List<Tile.SymbolType> list)
@@ -226,6 +249,11 @@ public class PuzzleManager : MonoBehaviour
 
         tileA.SetSymbol(tileB.symbolImage.sprite, tileB.currentSymbol);
         tileB.SetSymbol(tempSprite, tempType);
+
+        playerMoves++;
+
+        moveText.text = $"Moves: {playerMoves}";
+
         if (CheckIfSolved())
         {
             Debug.Log("Puzzle Solved!");
