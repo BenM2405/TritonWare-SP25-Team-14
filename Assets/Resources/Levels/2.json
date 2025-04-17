@@ -1,0 +1,6 @@
+{
+    "width": 2,
+    "height": 2,
+    "playerSymbols": ["Circle", "Circle", "Square", "Square"],
+    "targetSymbols": ["Square", "Square", "Circle", "Circle"]
+}

@@ -21,7 +21,14 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
-        ConfigureGrid(GameConfig.GridWidth, GameConfig.GridHeight);
+        if (GameConfig.isStoryMode)
+        {
+            LoadLevelFromFile(LevelLoader.Instance.levelToLoad);
+        }
+        else
+        {
+            ConfigureGrid(GameConfig.GridWidth, GameConfig.GridHeight);
+        }
     }
 
     public void ConfigureGrid(int width, int height)
@@ -257,7 +264,15 @@ public class PuzzleManager : MonoBehaviour
         if (CheckIfSolved())
         {
             Debug.Log("Puzzle Solved!");
-            StartCoroutine(RegeneratePuzzleAfterDelay(1f));
+
+            if (!GameConfig.isStoryMode)
+            {
+                StartCoroutine(RegeneratePuzzleAfterDelay(1f));
+            }
+            else
+            {
+                Debug.Log("You beat a story level!");
+            }
         }
     }
 
@@ -267,6 +282,30 @@ public class PuzzleManager : MonoBehaviour
             for (int y = 0; y < gridHeight; y++) 
             {
                 tiles[x, y].SetHighlight((selectedPos == new Vector2Int(x,y)));
+            }
+        }
+    }
+
+    void LoadLevelFromFile(string levelName)
+    {
+        TextAsset json = Resources.Load<TextAsset>($"Levels/{levelName}");
+        LevelData data = JsonUtility.FromJson<LevelData>(json.text);
+
+        ConfigureGrid(data.width, data.height);
+
+        // parse player + target symbols
+        int index = 0;
+        for (int x = 0; x < data.width; x++)
+        {
+            for (int y = 0; y < data.height; y++)
+            {
+                Tile.SymbolType pType = (Tile.SymbolType)System.Enum.Parse(typeof(Tile.SymbolType), data.playerSymbols[index]);
+                Tile.SymbolType tType = (Tile.SymbolType)System.Enum.Parse(typeof(Tile.SymbolType), data.targetSymbols[index]);
+
+                tiles[x, y].SetSymbol(pType == Tile.SymbolType.Circle ? circleSprite : squareSprite, pType);
+                targetTiles[x, y].SetSymbol(tType == Tile.SymbolType.Circle ? circleSprite : squareSprite, tType);
+
+                index++;
             }
         }
     }
@@ -304,5 +343,14 @@ public class PuzzleManager : MonoBehaviour
             if (a[i] != b[i]) return false;
         }
         return true;
+    }
+
+    [System.Serializable]
+    public class LevelData
+    {
+        public int width;
+        public int height;
+        public List<string> playerSymbols;
+        public List<string> targetSymbols;
     }
 }

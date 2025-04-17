@@ -6,4 +6,5 @@ public static class GameConfig
 {
     public static int GridWidth = 3;
     public static int GridHeight = 3;
+    public static bool isStoryMode = false;
 }

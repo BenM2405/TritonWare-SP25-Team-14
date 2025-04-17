@@ -5,6 +5,14 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject titleUI;
     public GameObject endless;
+    public GameObject storyCanvas;
+    public DynamicLevelLoader dynamicLevelLoader;
+
+    public void Story()
+    {
+        storyCanvas.SetActive(true);
+        dynamicLevelLoader.RegenerateButtons();
+    }
 
     public void Endless() {
         Debug.Log("Called Endless");
