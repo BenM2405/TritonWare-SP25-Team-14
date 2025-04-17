@@ -31,12 +31,15 @@ public class ScriptManager : MonoBehaviour
     void Start()
     {
         loadLines();
+        StopAllCoroutines();
+        characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         animator.SetBool("isSceneRunning", false);
     }
 
-    public void SwapScripts(LinesSO linesSO)
+    public void LoadScript(LinesSO linesSO)
     {
         scriptLines = linesSO;
+        loadLines();
     }
 
     [ContextMenu("Start Script")]
@@ -55,6 +58,7 @@ public class ScriptManager : MonoBehaviour
         }
     }
 
+    [ContextMenu("Next Segment")]
     public void NextSegment()
     {
         if (isSceneRunning)
