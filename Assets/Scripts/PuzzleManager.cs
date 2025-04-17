@@ -21,7 +21,7 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
-        ConfigureGrid(gridWidth, gridHeight);
+        ConfigureGrid(GameConfig.GridWidth, GameConfig.GridHeight);
     }
 
     public void ConfigureGrid(int width, int height)
