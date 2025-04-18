@@ -16,6 +16,7 @@ public class LinesSO : ScriptableObject
     [SerializeField] private string rawText = "";
     [SerializeField] private List<CharacterLine> formattedScript = new List<CharacterLine>();
     [SerializeField] private List<CharacterSO> characters;
+    public string backgroundMusicPath;
     private int lineIndex = 0;
 
     public enum LineCommand
@@ -100,7 +101,7 @@ public class LinesSO : ScriptableObject
                 rawDialogue = temp[0];
             }
 
-            
+
 
             // Adds the lines or commands from the rest of the raw dialogue to the CharacterLine object
             string[] splitText = rawDialogue.Split(new Char[] { '{', '}', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);

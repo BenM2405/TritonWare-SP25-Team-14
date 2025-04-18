@@ -43,10 +43,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638805209035619494
+  lastModified: 638805262085964478
   FileSizes:
   - Name: Desktop
-    Value: 2380160
+    Value: 2384768
   Exists: 1
 --- !u!114 &-8916241012900496462
 MonoBehaviour:
@@ -169,38 +169,11 @@ MonoBehaviour:
   Path: Assets/FMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638805209035629485
+  lastModified: 638805262085985486
   FileSizes:
   - Name: Desktop
-    Value: 1664
+    Value: 1572
   Exists: 1
---- !u!114 &-6862115941587960144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/music/test_music
-  m_EditorClassIdentifier: 
-  Path: event:/music/test_music
-  Guid:
-    Data1: -126627026
-    Data2: 1099103390
-    Data3: 229391259
-    Data4: 751271867
-  Banks:
-  - {fileID: -9107093747985070325}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-3471819912224470031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,33 +281,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-245435339332570897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/sfx/test_sfx
-  m_EditorClassIdentifier: 
-  Path: event:/sfx/test_sfx
-  Guid:
-    Data1: -2010397583
-    Data2: 1206627584
-    Data3: -834365310
-    Data4: 150069420
-  Banks:
-  - {fileID: -9107093747985070325}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-86232206991056038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,8 +326,6 @@ MonoBehaviour:
   - {fileID: -9107093747985070325}
   EditorEvents:
   - {fileID: 2647112963280811591}
-  - {fileID: -6862115941587960144}
-  - {fileID: -245435339332570897}
   - {fileID: -8916241012900496462}
   - {fileID: -1696038528234520355}
   - {fileID: 3031018069678482615}
@@ -401,7 +345,7 @@ MonoBehaviour:
   - {fileID: -9107093747985070325}
   StringsBanks:
   - {fileID: -7527205660420166600}
-  cacheTime: 638805209035629485
+  cacheTime: 638805262085985486
   cacheVersion: 131624
 --- !u!114 &1244963753253222334
 MonoBehaviour:
@@ -646,19 +590,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/music/story_music
   Guid:
-    Data1: 669507044
-    Data2: 1322880268
-    Data3: -1024302431
-    Data4: 1667664448
+    Data1: 1409915277
+    Data2: 1123060544
+    Data3: 470478210
+    Data4: 925295833
   Banks:
   - {fileID: -9107093747985070325}
-  IsStream: 0
+  IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 113998
 --- !u!114 &8594428976599502277
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class ScriptManager : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Animator animator;
     private FMOD.Studio.EventInstance characterTalkingEvent;
+    private FMOD.Studio.EventInstance backgroundMusicEvent;
     [SerializeField] private float characterTextSpeed = 20f; // Formula: (How many seconds per letter printed) = 1 / characterTextSpeed
     private LinesSO.CharacterLine nextSegment;
 
@@ -35,6 +36,8 @@ public class ScriptManager : MonoBehaviour
     {
         loadLines();
         StopAllCoroutines();
+        backgroundMusicEvent = FMODUnity.RuntimeManager.CreateInstance(scriptLines.backgroundMusicPath);
+        backgroundMusicEvent.start();
         characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         animator.SetBool("isSceneRunning", false);
     }
@@ -110,6 +113,7 @@ public class ScriptManager : MonoBehaviour
         isSceneRunning = false;
         animator.SetBool("isSceneRunning", false);
         Debug.Log("Dialogue has ended!");
+        backgroundMusicEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
         GameConfig.isStoryMode = true;
         SceneManager.LoadScene("PuzzleScene");

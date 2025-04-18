@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +12,7 @@ public class PuzzleManager : MonoBehaviour
 
     public Tile[,] tiles;
     public Tile[,] targetTiles;
-    public Vector2Int selectedPos = new Vector2Int(0,0);
+    public Vector2Int selectedPos = new Vector2Int(0, 0);
     private Vector2Int? secondselectedPos = null;
 
     public Sprite circleSprite;
@@ -19,6 +21,10 @@ public class PuzzleManager : MonoBehaviour
     public TMPro.TextMeshProUGUI parText;
     public TMPro.TextMeshProUGUI moveText;
     public int playerMoves = 0;
+    private EventInstance puzzleMusicEventInstance;
+    private string puzzleMusicPath = "event:/music/puzzle_music";
+    private string levelCompleteSFXPath = "event:/sfx/puzzle/level_complete";
+    private string noteSwapSFXPath = "event:/sfx/puzzle/note_swap";
 
     void Start()
     {
@@ -26,11 +32,14 @@ public class PuzzleManager : MonoBehaviour
         {
             ResetAllTilePositions();
             LoadLevelFromFile(LevelLoader.Instance.levelToLoad);
+            // change this to something else if other background music needs to be loaded
+            startPuzzleMusic();
         }
         else
         {
             ResetAllTilePositions();
             ConfigureGrid(GameConfig.GridWidth, GameConfig.GridHeight);
+            startPuzzleMusic();
         }
     }
 
@@ -56,11 +65,33 @@ public class PuzzleManager : MonoBehaviour
         HandleSwap();
     }
 
+    private void startPuzzleMusic()
+    {
+        puzzleMusicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        puzzleMusicEventInstance = FMODUnity.RuntimeManager.CreateInstance(puzzleMusicPath);
+        puzzleMusicEventInstance.start();
+    }
+
+    public void stopPuzzleMusic()
+    {
+        puzzleMusicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    private void playPuzzleCompleteSFX()
+    {
+        RuntimeManager.PlayOneShot(levelCompleteSFXPath);
+    }
+
+    private void playNoteSwapSFX()
+    {
+        RuntimeManager.PlayOneShot(noteSwapSFXPath);
+    }
+
     System.Collections.IEnumerator RegeneratePuzzleAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        selectedPos = new Vector2Int(0,0);
+        selectedPos = new Vector2Int(0, 0);
         secondselectedPos = null;
         playerMoves = 0;
         moveText.text = $"Moves: {0}";
@@ -123,7 +154,7 @@ public class PuzzleManager : MonoBehaviour
                 string objName = $"TargetTile_{x}_{y}";
                 GameObject tileObj = GameObject.Find(objName);
                 Tile tile = tileObj.GetComponent<Tile>();
-                tile.gridPos = new Vector2Int(x,y);
+                tile.gridPos = new Vector2Int(x, y);
                 targetTiles[x, y] = tile;
             }
         }
@@ -193,7 +224,7 @@ public class PuzzleManager : MonoBehaviour
             parText.text = $"Par: {par}";
         }
     }
-    
+
     void ShuffleList(List<Tile.SymbolType> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -242,6 +273,7 @@ public class PuzzleManager : MonoBehaviour
 
                 if (AreAdjacent(first, second))
                 {
+                    playNoteSwapSFX();
                     SwapTiles(first, second);
                 }
 
@@ -251,7 +283,8 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    void SwapTiles(Vector2Int a, Vector2Int b){
+    void SwapTiles(Vector2Int a, Vector2Int b)
+    {
         Tile tileA = tiles[a.x, a.y];
         Tile tileB = tiles[b.x, b.y];
 
@@ -280,12 +313,13 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    void HighlightSelected(){
+    void HighlightSelected()
+    {
         for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = 0; y < gridHeight; y++) 
+            for (int y = 0; y < gridHeight; y++)
             {
-                tiles[x, y].SetHighlight((selectedPos == new Vector2Int(x,y)));
+                tiles[x, y].SetHighlight((selectedPos == new Vector2Int(x, y)));
             }
         }
     }
@@ -365,7 +399,7 @@ public class PuzzleManager : MonoBehaviour
 
     bool AreAdjacent(Vector2Int a, Vector2Int b)
     {
-        return (Mathf.Abs(a.x-b.x) + Mathf.Abs(a.y-b.y)) == 1;
+        return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y)) == 1;
     }
 
     bool CheckIfSolved()
@@ -380,6 +414,7 @@ public class PuzzleManager : MonoBehaviour
                 }
             }
         }
+        playPuzzleCompleteSFX();
         return true;
     }
 
@@ -391,6 +426,11 @@ public class PuzzleManager : MonoBehaviour
             if (a[i] != b[i]) return false;
         }
         return true;
+    }
+
+    void OnDisable()
+    {
+        stopPuzzleMusic();
     }
 
     [System.Serializable]
