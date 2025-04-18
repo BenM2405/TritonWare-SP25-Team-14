@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class DynamicLevelLoader : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class DynamicLevelLoader : MonoBehaviour
 
             btnObj.GetComponent<Button>().onClick.AddListener(() =>
             {
-                LevelLoader.Instance.LoadLevel(level.name);
+                PlayStoryLevel(level.name);
             });
         }
     }
@@ -40,5 +41,13 @@ public class DynamicLevelLoader : MonoBehaviour
 
         LoadLevelButtons();
     }
+
+    public void PlayStoryLevel(string levelName)
+    {
+        LevelLoader.Instance.levelToLoad = levelName;
+        GameConfig.isStoryMode = true;
+        SceneManager.LoadScene("DialogueScene");
+    }
+
 
 }

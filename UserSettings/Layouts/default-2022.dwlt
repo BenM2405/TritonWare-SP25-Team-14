@@ -24,22 +24,3 @@ MonoBehaviour:
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  controlID: 90
---- !u!114 &3
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_CorrespondingSourceObject: {fileID: 0}
-    width: 170.4
-    height: 750.4
->>>>>>> Stashed changes
-  m_Name: ProjectBrowser
-  m_EditorClassIdentifier: 
-  m_Children: []
-  m_Position:
-  - {fileID: 12}
-  - {fileID: 17}
-  - {fileID: 8}
-  m_Position:
-    serializedVersion: 2

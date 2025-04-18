@@ -107,6 +107,7 @@
     <Compile Include="Assets\Scripts\DialogueSystem\CharacterSO.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\DialogueSystem\DialogueLoader.cs" />
     <Compile Include="Assets\Scripts\GameConfig.cs" />
     <Compile Include="Assets\Scripts\ParCalculator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />

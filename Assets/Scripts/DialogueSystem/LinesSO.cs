@@ -34,6 +34,7 @@ public class LinesSO : ScriptableObject
     {
         Debug.Log("Formatting script...");
         format(rawText);
+        Debug.Log($"Formatted {formattedScript.Count} dialogue segments.");
         if (formattedScript == null)
         {
             Debug.LogError("Formatted script not found!");
@@ -99,6 +100,7 @@ public class LinesSO : ScriptableObject
                 rawDialogue = temp[0];
             }
 
+            
 
             // Adds the lines or commands from the rest of the raw dialogue to the CharacterLine object
             string[] splitText = rawDialogue.Split(new Char[] { '{', '}', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
