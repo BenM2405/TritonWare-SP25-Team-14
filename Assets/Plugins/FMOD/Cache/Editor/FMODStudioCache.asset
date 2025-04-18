@@ -43,10 +43,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638805052631070877
+  lastModified: 638805196063359378
   FileSizes:
   - Name: Desktop
-    Value: 7616
+    Value: 2378496
   Exists: 1
 --- !u!114 &-8916241012900496462
 MonoBehaviour:
@@ -75,6 +75,85 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-8512962981589457023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music/puzzle_music
+  m_EditorClassIdentifier: 
+  Path: event:/music/puzzle_music
+  Guid:
+    Data1: 1699025317
+    Data2: 1113144569
+    Data3: 238675079
+    Data4: -2010024720
+  Banks:
+  - {fileID: -9107093747985070325}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 177000
+--- !u!114 &-8452208081484578695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/safeStop
+  m_EditorClassIdentifier: 
+  Name: safeStop
+  StudioPath: parameter:/safeStop
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1830748213
+    data2: 2610808565
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-7954546789191851326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx/dialogue/evil_talking_sfx
+  m_EditorClassIdentifier: 
+  Path: event:/sfx/dialogue/evil_talking_sfx
+  Guid:
+    Data1: 571440549
+    Data2: 1253378804
+    Data3: -1170101370
+    Data4: -639057771
+  Banks:
+  - {fileID: -9107093747985070325}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2249367917884196663}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 164
 --- !u!114 &-7527205660420166600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,10 +169,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638805052631080881
+  lastModified: 638805196063376675
   FileSizes:
   - Name: Desktop
-    Value: 1214
+    Value: 1610
   Exists: 1
 --- !u!114 &-6862115941587960144
 MonoBehaviour:
@@ -122,6 +201,86 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-3471819912224470031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx/dialogue/monster_talking_sfx
+  m_EditorClassIdentifier: 
+  Path: event:/sfx/dialogue/monster_talking_sfx
+  Guid:
+    Data1: 342389809
+    Data2: 1193728649
+    Data3: 903437475
+    Data4: 1829772849
+  Banks:
+  - {fileID: -9107093747985070325}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 7104071909130072975}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 173
+--- !u!114 &-2249367917884196663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/evil_talking_sfx/safeStop
+  m_EditorClassIdentifier: 
+  Name: safeStop
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1830748213
+    data2: 2610808565
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-2169658331338801589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx/dialogue/quiet_talking_sfx
+  m_EditorClassIdentifier: 
+  Path: event:/sfx/dialogue/quiet_talking_sfx
+  Guid:
+    Data1: -623232527
+    Data2: 1262389511
+    Data3: 1687193737
+    Data4: 2069626766
+  Banks:
+  - {fileID: -9107093747985070325}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 1840660320136942832}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 210
 --- !u!114 &-1696038528234520355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +335,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-86232206991056038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx/dialogue/divine_talking_sfx
+  m_EditorClassIdentifier: 
+  Path: event:/sfx/dialogue/divine_talking_sfx
+  Guid:
+    Data1: 1168940920
+    Data2: 1077422998
+    Data3: -1553888857
+    Data4: 1586063542
+  Banks:
+  - {fileID: -9107093747985070325}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 3243607182207529453}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 220
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,13 +386,74 @@ MonoBehaviour:
   - {fileID: -1696038528234520355}
   - {fileID: 3031018069678482615}
   - {fileID: -9201208416801936538}
-  EditorParameters: []
+  - {fileID: -3471819912224470031}
+  - {fileID: 1244963753253222334}
+  - {fileID: -86232206991056038}
+  - {fileID: -8512962981589457023}
+  - {fileID: -7954546789191851326}
+  - {fileID: 8594428976599502277}
+  - {fileID: 7998362938989654868}
+  - {fileID: -2169658331338801589}
+  EditorParameters:
+  - {fileID: -8452208081484578695}
   MasterBanks:
   - {fileID: -9107093747985070325}
   StringsBanks:
   - {fileID: -7527205660420166600}
-  cacheTime: 638805052631080881
+  cacheTime: 638805196063376675
   cacheVersion: 131624
+--- !u!114 &1244963753253222334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx/dialogue/goofy_talking_sfx
+  m_EditorClassIdentifier: 
+  Path: event:/sfx/dialogue/goofy_talking_sfx
+  Guid:
+    Data1: 1597154382
+    Data2: 1197673835
+    Data3: -1207136322
+    Data4: -751491948
+  Banks:
+  - {fileID: -9107093747985070325}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 7244121765004939730}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 199
+--- !u!114 &1840660320136942832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/quiet_talking_sfx/safeStop
+  m_EditorClassIdentifier: 
+  Name: safeStop
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1830748213
+    data2: 2610808565
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &2647112963280811591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +508,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3243607182207529453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/divine_talking_sfx/safeStop
+  m_EditorClassIdentifier: 
+  Name: safeStop
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1830748213
+    data2: 2610808565
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &5312999076932476268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +553,108 @@ MonoBehaviour:
     data1: 1830748213
     data2: 2610808565
   Type: 1
-  IsGlobal: 0
+  IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &7104071909130072975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/monster_talking_sfx/safeStop
+  m_EditorClassIdentifier: 
+  Name: safeStop
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1830748213
+    data2: 2610808565
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &7244121765004939730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/goofy_talking_sfx/safeStop
+  m_EditorClassIdentifier: 
+  Name: safeStop
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1830748213
+    data2: 2610808565
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &7998362938989654868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music/story_music
+  m_EditorClassIdentifier: 
+  Path: event:/music/story_music
+  Guid:
+    Data1: 669507044
+    Data2: 1322880268
+    Data3: -1024302431
+    Data4: 1667664448
+  Banks:
+  - {fileID: -9107093747985070325}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8594428976599502277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music/openning_music
+  m_EditorClassIdentifier: 
+  Path: event:/music/openning_music
+  Guid:
+    Data1: 1453052596
+    Data2: 1155192353
+    Data3: 2092505245
+    Data4: 801682497
+  Banks:
+  - {fileID: -9107093747985070325}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 113998

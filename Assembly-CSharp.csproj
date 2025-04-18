@@ -59,7 +59,7 @@
     <UnityVersion>2022.3.49f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\mcbea\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\Mason\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.49f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.49f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -114,15 +114,18 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\FMOD\Metadata\Event\{5f32a44e-0d6b-4763-be8f-0cb8942435d3}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\FMOD\Metadata\Event\{f9d89b87-b50c-49eb-8962-0ed9d739591d}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\FMOD\Metadata\Platform\{a63fd325-eee2-44fc-820e-aac13aacd7c3}.xml" />
     <None Include="Assets\FMOD\Metadata\Event\{f16ce9a5-ced8-4299-ae14-7ce462b0eefb}.xml" />
     <None Include="Assets\FMOD\Metadata\Mixer.xml" />
+    <None Include="Assets\FMOD\Metadata\Event\{14687431-da89-4726-a35c-d935311e106d}.xml" />
     <None Include="Assets\FMOD\Metadata\EventFolder\{2dfed6e5-f9be-43da-b28b-0d477f9e26a1}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\FMOD\Metadata\EventFolder\{b17525f1-20a4-4634-9438-0d68fb32f62a}.xml" />
+    <None Include="Assets\FMOD\Metadata\AudioFile\{85815e4e-f9f0-4fc5-b412-2ebba50c658f}.xml" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\FMOD\Metadata\Workspace.xml" />
@@ -134,6 +137,8 @@
     <None Include="Assets\FMOD\Metadata\Asset\{29dd421c-522c-4168-a32a-a4e0cc70ef0c}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\FMOD\Metadata\ParameterPreset\{7ff99295-591a-42e6-9b12-b93a6c91220f}.xml" />
+    <None Include="Assets\FMOD\Metadata\Event\{dada39f1-8907-4b3e-8988-90648eff5b7b}.xml" />
+    <None Include="Assets\FMOD\Metadata\Event\{569bd2b4-d621-44da-9d18-b97c41b4c82f}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\FMOD\Metadata\EventFolder\{c926ca0c-c440-4eee-8680-dcb4f573134a}.xml" />
     <None Include="Assets\FMOD\Metadata\Return\{18e934be-6583-4003-924c-8386ec8cdbce}.xml" />
@@ -150,11 +155,18 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\FMOD\Metadata\SnapshotGroup\{0e65ee41-101a-4724-ad3d-581480ef459b}.xml" />
+    <None Include="Assets\FMOD\Metadata\Event\{45ac9f78-2b96-4038-a789-61a3b668895e}.xml" />
     <None Include="Assets\FMOD\Metadata\Event\{67f3792b-f7eb-4f78-b2fe-2bb8ea90bc8e}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\FMOD\Metadata\SandboxFolder\{0bf8b578-aaf9-4e44-91e2-6662e02d5cc2}.xml" />
+    <None Include="Assets\FMOD\Metadata\AudioFile\{15326178-71c4-49ce-8a99-e5659122dac8}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\FMOD\Metadata\Event\{220f7da5-0af4-4ab5-86ab-41ba95c0e8d9}.xml" />
+    <None Include="Assets\FMOD\Metadata\AudioFile\{cc3b022b-5b78-4132-967c-c1d4e91f896e}.xml" />
+    <None Include="Assets\FMOD\Metadata\AudioFile\{89aacb03-2d9a-4750-b8db-e3037276d41a}.xml" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\FMOD\Metadata\AudioFile\{643a0adf-77c7-4e9d-8eb1-4623b3c6d5a5}.xml" />
+    <None Include="Assets\FMOD\Metadata\AudioFile\{0082695b-e20c-47ee-9f39-0ca664e0d93f}.xml" />
     <None Include="Assets\FMOD\Metadata\EventFolder\{365ef06e-0969-4f0b-bdbf-d07d227ff7eb}.xml" />
     <None Include="Assets\FMOD\Metadata\Event\{7f08b278-f4d3-4499-b185-16e77a34f26d}.xml" />
     <None Include="Assets\FMOD\Metadata\Event\{882bc471-ad00-47eb-8298-44ceace0f108}.xml" />
@@ -162,12 +174,16 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\FMOD\Metadata\AudioFile\{fa59f6b8-b3cd-468e-9d71-dd5d350fbb8f}.xml" />
     <None Include="Assets\FMOD\Metadata\AudioFile\{5fe7dedc-9984-4dc4-b81d-e2675455e2f4}.xml" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\FMOD\Metadata\AudioFile\{1196ccc3-8cf8-462f-9a9c-50135582ff0c}.xml" />
     <None Include="Assets\FMOD\Metadata\EffectPresetFolder\{9ff53306-257e-4650-8610-dd645b9eb28f}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\FMOD\Metadata\Event\{654511a5-3cf9-4259-87e4-390ef0743188}.xml" />
     <None Include="Assets\FMOD\Metadata\ProfilerFolder\{9f3a1530-adc0-4194-90dd-dee61f0237e8}.xml" />
     <None Include="Assets\FMOD\Metadata\Group\{1c04e2c4-f247-4e0c-a483-c3414dc88a74}.xml" />
+    <None Include="Assets\FMOD\Metadata\Event\{27e7dde4-8d0c-4ed9-a162-f2c2408a6663}.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\FMOD\Metadata\Master.xml" />
