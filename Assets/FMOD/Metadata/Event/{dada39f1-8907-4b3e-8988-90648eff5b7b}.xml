@@ -83,6 +83,7 @@
 		<relationship name="markers">
 			<destination>{84fb9fc8-d355-49ca-aead-ee284ea135ce}</destination>
 			<destination>{3758e120-45c1-44ea-8bb5-1ea2df6c283f}</destination>
+			<destination>{226a6521-9705-4bb7-bc00-f2c9ea4d10dc}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{11436bec-21c2-41f8-9910-dc04eb6102ad}">
@@ -172,10 +173,10 @@
 	</object>
 	<object class="LoopRegion" id="{3758e120-45c1-44ea-8bb5-1ea2df6c283f}">
 		<property name="position">
-			<value>0.19922916666666668</value>
+			<value>0.20800000000000002</value>
 		</property>
 		<property name="length">
-			<value>0.0097499999999999809</value>
+			<value>0.0018314972416577091</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{6d1f40aa-2369-4b31-b2ec-12d9d520abd3}</destination>
@@ -185,6 +186,23 @@
 		</relationship>
 		<relationship name="triggerConditions">
 			<destination>{56a3c195-4a68-4286-a4d2-41f57a07214c}</destination>
+		</relationship>
+	</object>
+	<object class="TransitionMarker" id="{226a6521-9705-4bb7-bc00-f2c9ea4d10dc}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{6d1f40aa-2369-4b31-b2ec-12d9d520abd3}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{ae6d17d8-aceb-4abe-aabc-2f40f6163ab9}</destination>
+		</relationship>
+		<relationship name="destination">
+			<destination>{3758e120-45c1-44ea-8bb5-1ea2df6c283f}</destination>
+		</relationship>
+		<relationship name="triggerConditions">
+			<destination>{13d29803-e027-43d9-8a08-501efd13b7f4}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{9db5895b-512a-49a8-b4e7-c2d214ed9701}">
@@ -220,6 +238,17 @@
 		</relationship>
 	</object>
 	<object class="ParameterCondition" id="{56a3c195-4a68-4286-a4d2-41f57a07214c}">
+		<property name="minimum">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>1</value>
+		</property>
+		<relationship name="parameter">
+			<destination>{2c95b6a2-360a-4583-9e54-8cd0b05d11bf}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterCondition" id="{13d29803-e027-43d9-8a08-501efd13b7f4}">
 		<property name="minimum">
 			<value>1</value>
 		</property>

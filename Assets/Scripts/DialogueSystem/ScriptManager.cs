@@ -19,6 +19,7 @@ public class ScriptManager : MonoBehaviour
     [SerializeField] private Image colorAccent;
     [SerializeField] private Button continueButton;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject levelLoader;
     private FMOD.Studio.EventInstance characterTalkingEvent;
     private FMOD.Studio.EventInstance backgroundMusicEvent;
     [SerializeField] private float characterTextSpeed = 20f; // Formula: (How many seconds per letter printed) = 1 / characterTextSpeed
@@ -28,15 +29,12 @@ public class ScriptManager : MonoBehaviour
     private bool isSegmentRunning = false;
     private int state = 0;
 
-
-    // TODO: Have the dialogue pop up and pop down when scene is playing / ending, implement sprite animations for talking, Lerp or Slerp colors to transition between color accents
-    // maybe implementing sound talking sfx swaps, speed increases / decreases, who knows lol
-
     void Start()
     {
         loadLines();
         StopAllCoroutines();
-        backgroundMusicEvent = FMODUnity.RuntimeManager.CreateInstance(scriptLines.backgroundMusicPath);
+        backgroundMusicEvent = FMODUnity.RuntimeManager.CreateInstance(scriptLines.BackgroundMusicPath);
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("safeStop", 1);
         backgroundMusicEvent.start();
         characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         animator.SetBool("isSceneRunning", false);
@@ -62,7 +60,6 @@ public class ScriptManager : MonoBehaviour
         if (!isSceneRunning)
         {
             isSceneRunning = true;
-            animator.SetBool("isSceneRunning", true);
             scriptLines.SetLineIndex(0);
             NextSegment();
         }
@@ -78,6 +75,7 @@ public class ScriptManager : MonoBehaviour
         if (isSceneRunning)
         {
             //Debug.Log("Loading next segment!");
+            animator.SetBool("isSceneRunning", true);
             isSegmentRunning = true;
             DisableContinueButton();
             StopAllCoroutines();
@@ -115,8 +113,24 @@ public class ScriptManager : MonoBehaviour
         Debug.Log("Dialogue has ended!");
         backgroundMusicEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
-        GameConfig.isStoryMode = true;
-        SceneManager.LoadScene("PuzzleScene");
+        //TODO: Need to generalize this to handle both swapping to another story or puzzle
+        DelayForNextScene();
+        if (scriptLines.isNextScenePuzzle)
+        {
+            GameConfig.isStoryMode = true;
+            levelLoader.GetComponent<LevelLoader>().LoadLevel(scriptLines.NextToLoad);
+            SceneManager.LoadScene("PuzzleScene");
+        }
+        else
+        {
+
+            SceneManager.LoadScene("DialogueScene");
+        }
+    }
+
+    IEnumerator DelayForNextScene()
+    {
+        yield return new WaitForSeconds(0.5f);
     }
 
     private void LoadCharacterData(CharacterSO character)
@@ -192,6 +206,11 @@ public class ScriptManager : MonoBehaviour
         String temp = "";
         for (int i = 0; i < nextSegment.lines.Count; i++)
         {
+            if (nextSegment.lineCommands[i] == LinesSO.LineCommand.Action_START_PUZZLE)
+            {
+                runLineCommand(LinesSO.LineCommand.Action_START_PUZZLE);
+                break;
+            }
             temp += nextSegment.lines[i];
         }
         dialogueText.text = temp;
@@ -200,7 +219,6 @@ public class ScriptManager : MonoBehaviour
 
     private object runLineCommand(LinesSO.LineCommand lineCommand)
     {
-        // TODO: Special command logic handled here
         Debug.Log(lineCommand.ToString());
 
         switch (lineCommand)
@@ -211,9 +229,21 @@ public class ScriptManager : MonoBehaviour
             case LinesSO.LineCommand.Action_CONTINUE:
                 StopAllCoroutines();
                 nextSegment = scriptLines.NextSegment();
+                characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                 LoadCharacterData(nextSegment.Character);
                 characterTalkingEvent.start();
                 StartCoroutine(TypeSentence());
+                break;
+
+            case LinesSO.LineCommand.Action_START_PUZZLE:
+                //TODO: This section needs to start the puzzle found in the scene. On the puzzle side, upon level completion, the script needs to call NextSegment() located here
+                Debug.Log("Starting puzzle...");
+                // this should only be called when the dialogue is actively in a puzzle
+                // make sure when skipping, it does not skip this format
+                // when continue is hit, hide the dialogue box and start the puzzle
+                DisableContinueButton();
+                animator.SetBool("isSceneRunning", false);
+                // when puzzle is complete, call NextSegment() which should show the dialogue box
                 break;
 
             case LinesSO.LineCommand.Format_THINK:

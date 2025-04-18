@@ -16,14 +16,17 @@ public class LinesSO : ScriptableObject
     [SerializeField] private string rawText = "";
     [SerializeField] private List<CharacterLine> formattedScript = new List<CharacterLine>();
     [SerializeField] private List<CharacterSO> characters;
-    public string backgroundMusicPath;
+    public string BackgroundMusicPath;
+    public string sceneID;
+    public string NextToLoad;
+    public bool isNextScenePuzzle;
     private int lineIndex = 0;
 
     public enum LineCommand
     {
-        // TODO: Insert possible types of commands here
         Action_WAIT,        // wait a brief period for a slight pause
         Action_CONTINUE,    // immediate move to next segment, regardless of player input
+        Action_START_PUZZLE, // start a puzzle after dialogue is done
         Format_THINK,       // to show the person thinking (i.e. italics)
         Format_SAD,         // to show the person sad (normal text but may change sprite)
         Format_YELL,        // to show the person yelling (i.e. bold)
@@ -109,8 +112,6 @@ public class LinesSO : ScriptableObject
             {
                 switch (split)
                 {
-                    // TODO: Insert formats for the commands here
-
                     case "WAIT":
                         nextCharacterLine.lineCommands.Add(LineCommand.Action_WAIT);
                         nextCharacterLine.lines.Add(null);
@@ -118,6 +119,11 @@ public class LinesSO : ScriptableObject
 
                     case "CONTINUE":
                         nextCharacterLine.lineCommands.Add(LineCommand.Action_CONTINUE);
+                        nextCharacterLine.lines.Add(null);
+                        break;
+
+                    case "START_PUZZLE":
+                        nextCharacterLine.lineCommands.Add(LineCommand.Action_START_PUZZLE);
                         nextCharacterLine.lines.Add(null);
                         break;
 

@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject endless;
     public GameObject storyCanvas;
     public DynamicLevelLoader dynamicLevelLoader;
-    private String titleMusicPath = "event:/music/title_music";
+    private String titleMusicPath = "event:/music/title_speech_music";
     private EventInstance titleMusicEventInstance;
 
     void Start()

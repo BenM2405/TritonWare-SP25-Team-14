@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{654511a5-3cf9-4259-87e4-390ef0743188}">
 		<property name="name">
-			<value>puzzle_music</value>
+			<value>endless_music</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -216,7 +216,7 @@
 			<value>Audio 1</value>
 		</property>
 		<relationship name="modulators">
-			<destination>{931d4f0e-9140-47b5-8b95-89443301f40a}</destination>
+			<destination>{0ea56d3f-713e-442e-b39e-d7fa11f2bd5d}</destination>
 		</relationship>
 		<relationship name="effectChain">
 			<destination>{b92a995b-da88-4aff-a7c4-01cbbde91ece}</destination>
@@ -362,7 +362,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{6db784b3-cbbc-4d93-a849-b4d8dfe6c1c2}" />
 	<object class="MixerBusFader" id="{32481b07-8440-410d-8728-192ade14f05e}" />
-	<object class="ADSRModulator" id="{931d4f0e-9140-47b5-8b95-89443301f40a}">
+	<object class="ADSRModulator" id="{0ea56d3f-713e-442e-b39e-d7fa11f2bd5d}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
@@ -373,13 +373,16 @@
 			<value>0</value>
 		</property>
 		<property name="holdTime">
-			<value>0</value>
+			<value>40</value>
 		</property>
 		<property name="decayTime">
 			<value>0</value>
 		</property>
 		<property name="releaseTime">
-			<value>1600</value>
+			<value>2000</value>
+		</property>
+		<property name="releaseShape">
+			<value>0.271852642</value>
 		</property>
 		<property name="finalValue">
 			<value>-80</value>

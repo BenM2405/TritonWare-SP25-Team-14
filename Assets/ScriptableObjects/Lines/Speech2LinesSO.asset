@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: Speech2LinesSO
+  m_EditorClassIdentifier: 
+  rawText: "[DREAMER] Hmph\u2026 {WAIT} Ugh.\r\n\r\n[SPIRIT] Oh shoot.\r\n\r\n[DREAMER]
+    What\u2026 {WAIT}{WAIT}Where am I?\r\n\r\n[SPIRIT] Welcome to your mind!\r\n\r\n[DREAMER]
+    (YELL) OAHHH! {CONTINUE}\r\n\r\n[SPIRIT] (NORMAL) Oh! {WAIT} Sorry to shock you,
+    (WAIT) that creepy thing is not quiet about things. {WAIT} Heh.\r\n\r\n[DREAMER]
+    Yeah, no. {WAIT} It\u2019s fine, {WAIT} I heard the whole banter, {WAIT} especially
+    the dream finding part. {WAIT} Those nightmare things keep ruining my sleep.\r\n\r\n[SPIRIT]
+    So then you don\u2019t see me as those guys?\r\n\r\n[DREAMER] Nope. {WAIT} You\u2019re
+    cool.\r\n\r\n[SPIRIT] :) \r\n\r\n[DREAMER] Well, {WAIT} now that you are here,
+    {WAIT} can you help me out with something? {WAIT}  If you can use your, {WAIT}
+    um, {WAIT} \u2018dream powers\u2019, {WAIT} to get rid of my nightmare, {WAIT}
+    it would do me a huge favor.\r\n\r\n[SPIRIT] Got you! {WAIT} This might take
+    a while, {WAIT} just need something you like to get started!\r\n\r\n[MUSICIAN]
+    I make music, {WAIT} does that work?\r\n\r\n[SPIRIT] The power of music! {WAIT}
+    Look out, nightmares, {WAIT} we\u2019ll show you a true melody!\r"
+  characters:
+  - {fileID: 11400000, guid: 274928febf2933e4181530f5d63dfb0f, type: 2}
+  - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
+  - {fileID: 11400000, guid: 27047cfd4b2af574c9c05d37678d3d46, type: 2}
+  BackgroundMusicPath: event:/music/title_speech_music
+  sceneID: Speech2
+  NextToLoad: Level2
+  isNextScenePuzzle: 1

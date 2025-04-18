@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: Level5LinesSO
+  m_EditorClassIdentifier: 
+  rawText: '[???] (NORMAL) Do you see it now? {WAIT} Nightmares are without balance,
+    {WAIT} that is true. {WAIT} Dreams are folly that never give fashion, {WAIT}
+    for they are without a coat, {WAIT} moat, {WAIT} or a goat in interest.
+
+
+
+    [???]
+    So let me ask you again, {WAIT} child.
+
+
+
+    [DISHARMONY] Do {WAIT} you {WAIT}
+    know {WAIT} what {WAIT} you {WAIT} have {WAIT} gotten {WAIT} yourself {WAIT}
+    into?
+
+
+
+    [SPIRIT] Nope, {WAIT} and I never pretended that I did. {WAIT} Look
+    what that led you to!
+
+
+
+    [DISHARMONY] Then let us dance from this day here
+    to!
+
+
+    {START_PUZZLE}'
+  characters:
+  - {fileID: 11400000, guid: 35852a5d02f25934ea67f25e3046130c, type: 2}
+  - {fileID: 11400000, guid: a251bf670c6a4424f84197fe5b494342, type: 2}
+  - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
+  BackgroundMusicPath: event:/music/level5_music
+  sceneID: Level5
+  NextToLoad: Ending
+  isNextScenePuzzle: 0

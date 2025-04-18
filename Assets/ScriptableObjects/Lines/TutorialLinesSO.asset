@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: TutorialLinesSO
+  m_EditorClassIdentifier: 
+  rawText: "[NARRATOR] In the lone eye of the moonlight, {WAIT} rested a young woman.
+    {WAIT} She was nested down her bed in the old town of Wested.\r\n\r\n[NARRATOR]
+    The young woman had a nightmare that could not be spelled in Roman. {WAIT} Shocked
+    to her core, no ware had the will to spare her down till the \u2018morn.\r\n\r\n[NARRATOR]
+    Yet a lone spirit heard her silent call, {WAIT} hoping that the Lyrian would
+    heed her at all.\r\n\r\n[SPIRIT] Tears. {WAIT} Fears.\r\n\r\n[SPIRIT] Trembling\u2026
+    \r\n\r\n[SPIRIT] Oh my, {WAIT} what a poor thing! {WAIT} To see one of Her precious
+    creations weep in\u2026 {WAIT} In shame! \r\n\r\n[SPIRIT] I am a creature meant
+    to bring cheer and joy to children throughout the world, {WAIT} but this must
+    have gotten over her fears a decade ago. \r\n\r\n[SPIRIT] Just {WAIT} what could
+    be bringing her so much suffering?\r\n\r\n[SPIRIT]  (YELL) Just What!? \r\n\r\n[SPIRIT]
+    (NORMAL) Sigh. {WAIT} What would All-Mother think if She sees me use my blessings
+    on someone so. {WAIT} So\u2026 \r\n\r\n[SPIRIT] {WAIT}{WAIT}.{WAIT}{WAIT}.{WAIT}{WAIT}.
+    {WAIT}{CONTINUE}\r\n\r\n[SPIRIT] No.\r\n\r\n[SPIRIT] No, {WAIT} I cannot allow
+    myself to let this one pass. {WAIT} The dreams of Humanity, {WAIT} so powerful,
+    {WAIT} yet so fragile, {WAIT} and for such a grown mind like this one\u2026 {WAIT}{WAIT}
+    Am I seriously going to do this? \r\n\r\n[SPIRIT] Sigh. {WAIT} Forgive me, Mother.
+    {WAIT} I swore to bring peace to any child, no matter the danger. {WAIT} My oath
+    may shatter by doing this, but if I do it well enough\u2026{WAIT}{WAIT} It will
+    be. {WAIT} (YELL) It will be!\n\n{START_PUZZLE}\r"
+  characters:
+  - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
+  - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
+  BackgroundMusicPath: event:/music/opening_music
+  sceneID: Tutorial
+  NextToLoad: Speech1
+  isNextScenePuzzle: 0

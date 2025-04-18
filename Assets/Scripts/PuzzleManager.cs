@@ -21,8 +21,8 @@ public class PuzzleManager : MonoBehaviour
     public TMPro.TextMeshProUGUI parText;
     public TMPro.TextMeshProUGUI moveText;
     public int playerMoves = 0;
-    private EventInstance puzzleMusicEventInstance;
-    private string puzzleMusicPath = "event:/music/puzzle_music";
+    private EventInstance endlessPuzzleMusicEventInstance;
+    private string endlessPuzzleMusicPath = "event:/music/endless_music";
     private string levelCompleteSFXPath = "event:/sfx/puzzle/level_complete";
     private string noteSwapSFXPath = "event:/sfx/puzzle/note_swap";
 
@@ -32,14 +32,13 @@ public class PuzzleManager : MonoBehaviour
         {
             ResetAllTilePositions();
             LoadLevelFromFile(LevelLoader.Instance.levelToLoad);
-            // change this to something else if other background music needs to be loaded
-            startPuzzleMusic();
+            // ScriptManager handles the background music
         }
         else
         {
             ResetAllTilePositions();
             ConfigureGrid(GameConfig.GridWidth, GameConfig.GridHeight);
-            startPuzzleMusic();
+            startEndlessPuzzleMusic();
         }
     }
 
@@ -65,16 +64,16 @@ public class PuzzleManager : MonoBehaviour
         HandleSwap();
     }
 
-    private void startPuzzleMusic()
+    private void startEndlessPuzzleMusic()
     {
-        puzzleMusicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        puzzleMusicEventInstance = FMODUnity.RuntimeManager.CreateInstance(puzzleMusicPath);
-        puzzleMusicEventInstance.start();
+        endlessPuzzleMusicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        endlessPuzzleMusicEventInstance = FMODUnity.RuntimeManager.CreateInstance(endlessPuzzleMusicPath);
+        endlessPuzzleMusicEventInstance.start();
     }
 
-    public void stopPuzzleMusic()
+    public void stopEndlessPuzzleMusic()
     {
-        puzzleMusicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        endlessPuzzleMusicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     private void playPuzzleCompleteSFX()
@@ -430,7 +429,7 @@ public class PuzzleManager : MonoBehaviour
 
     void OnDisable()
     {
-        stopPuzzleMusic();
+        stopEndlessPuzzleMusic();
     }
 
     [System.Serializable]

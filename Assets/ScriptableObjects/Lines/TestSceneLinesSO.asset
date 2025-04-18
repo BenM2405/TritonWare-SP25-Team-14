@@ -25,4 +25,5 @@ MonoBehaviour:
   characters:
   - {fileID: 11400000, guid: 852111ce9e5ca8c40861fece1733d13a, type: 2}
   - {fileID: 11400000, guid: eaaa7ac719d12c041ac1331804c9bb0f, type: 2}
-  backgroundMusicPath: event:/music/story_music
+  BackgroundMusicPath: event:/music/title_speech_music
+  NextPuzzleToLoad: 
