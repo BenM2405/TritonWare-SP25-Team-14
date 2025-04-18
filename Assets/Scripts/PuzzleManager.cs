@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PuzzleManager : MonoBehaviour
 {
@@ -23,10 +24,12 @@ public class PuzzleManager : MonoBehaviour
     {
         if (GameConfig.isStoryMode)
         {
+            ResetAllTilePositions();
             LoadLevelFromFile(LevelLoader.Instance.levelToLoad);
         }
         else
         {
+            ResetAllTilePositions();
             ConfigureGrid(GameConfig.GridWidth, GameConfig.GridHeight);
         }
     }
@@ -42,6 +45,7 @@ public class PuzzleManager : MonoBehaviour
         EnableRelevantTiles();
         AssignPlayerTiles();
         AssignTargetTiles();
+        DisableUnusedTileGraphics();
         InitializeBalancedGrids();
         HighlightSelected();
     }
@@ -309,6 +313,50 @@ public class PuzzleManager : MonoBehaviour
             }
         }
     }
+
+
+    void DisableUnusedTileGraphics()
+    {
+        Transform puzzleGrid = GameObject.Find("PuzzleGrid").transform;
+        Transform targetGrid = GameObject.Find("TargetGrid").transform;
+
+        foreach (Transform tile in puzzleGrid)
+        {
+            Tile tileScript = tile.GetComponent<Tile>();
+            bool isUsed = tileScript != null && IsValidPosition(tileScript.gridPos);
+
+            Image img = tile.GetComponentInChildren<Image>(true);
+            if (img != null)
+                img.enabled = isUsed;
+        }
+
+        foreach (Transform tile in targetGrid)
+        {
+            Tile tileScript = tile.GetComponent<Tile>();
+            bool isUsed = tileScript != null && IsValidPosition(tileScript.gridPos);
+
+            Image img = tile.GetComponentInChildren<Image>(true);
+            if (img != null)
+                img.enabled = isUsed;
+        }
+    }
+
+    void ResetAllTilePositions()
+    {
+        foreach (Transform tile in GameObject.Find("PuzzleGrid").transform)
+        {
+            Tile script = tile.GetComponent<Tile>();
+            if (script != null) script.gridPos = new Vector2Int(-1, -1);
+        }
+
+        foreach (Transform tile in GameObject.Find("TargetGrid").transform)
+        {
+            Tile script = tile.GetComponent<Tile>();
+            if (script != null) script.gridPos = new Vector2Int(-1, -1);
+        }
+    }
+
+
 
     bool IsValidPosition(Vector2Int pos)
     {

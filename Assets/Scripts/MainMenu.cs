@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
     public void Play2x2()
     {
         Debug.Log("Play2x2() called");
+        GameConfig.isStoryMode = false;
         GameConfig.GridWidth = 2;
         GameConfig.GridHeight = 2;
         SceneManager.LoadScene("PuzzleScene");
@@ -30,6 +31,7 @@ public class MainMenu : MonoBehaviour
     public void Play3x3()
     {
         Debug.Log("Play3x3() called");
+        GameConfig.isStoryMode = false;
         GameConfig.GridWidth = 3;
         GameConfig.GridHeight = 3;
         SceneManager.LoadScene("PuzzleScene");
