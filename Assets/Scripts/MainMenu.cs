@@ -1,3 +1,5 @@
+using System;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,14 +9,22 @@ public class MainMenu : MonoBehaviour
     public GameObject endless;
     public GameObject storyCanvas;
     public DynamicLevelLoader dynamicLevelLoader;
+    private String titleMusicPath = "event:/music/title_music";
+    private EventInstance titleMusicEventInstance;
 
+    void Start()
+    {
+        titleMusicEventInstance = FMODUnity.RuntimeManager.CreateInstance(titleMusicPath);
+        titleMusicEventInstance.start();
+    }
     public void Story()
     {
         storyCanvas.SetActive(true);
         dynamicLevelLoader.RegenerateButtons();
     }
 
-    public void Endless() {
+    public void Endless()
+    {
         Debug.Log("Called Endless");
         endless.SetActive(true);
     }
@@ -22,6 +32,7 @@ public class MainMenu : MonoBehaviour
     public void Play2x2()
     {
         Debug.Log("Play2x2() called");
+        stopTitleMusic();
         GameConfig.isStoryMode = false;
         GameConfig.GridWidth = 2;
         GameConfig.GridHeight = 2;
@@ -31,6 +42,7 @@ public class MainMenu : MonoBehaviour
     public void Play3x3()
     {
         Debug.Log("Play3x3() called");
+        stopTitleMusic();
         GameConfig.isStoryMode = false;
         GameConfig.GridWidth = 3;
         GameConfig.GridHeight = 3;
@@ -41,5 +53,10 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quit Game");
         Application.Quit();
+    }
+
+    public void stopTitleMusic()
+    {
+        titleMusicEventInstance.stop(STOP_MODE.ALLOWFADEOUT);
     }
 }

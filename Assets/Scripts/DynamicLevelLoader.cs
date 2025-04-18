@@ -3,11 +3,13 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using UnityEngine.SceneManagement;
+using FMOD.Studio;
 
 public class DynamicLevelLoader : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public Transform buttonContainer;
+    [SerializeField] GameObject menuManager;
     void Start()
     {
         LoadLevelButtons();
@@ -22,7 +24,7 @@ public class DynamicLevelLoader : MonoBehaviour
         {
             GameObject btnObj = Instantiate(buttonPrefab, buttonContainer);
             btnObj.name = $"Btn_{level.name}";
-            
+
             btnObj.GetComponentInChildren<TextMeshProUGUI>().text = level.name;
 
             btnObj.GetComponent<Button>().onClick.AddListener(() =>
@@ -44,6 +46,7 @@ public class DynamicLevelLoader : MonoBehaviour
 
     public void PlayStoryLevel(string levelName)
     {
+        menuManager.GetComponent<MainMenu>().stopTitleMusic();
         LevelLoader.Instance.levelToLoad = levelName;
         GameConfig.isStoryMode = true;
         SceneManager.LoadScene("DialogueScene");

@@ -953,6 +953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 9130436466715600671, guid: bd2a7eb38836a924584b81ed43b327e2, type: 3}
   buttonContainer: {fileID: 2060976548}
+  menuManager: {fileID: 1719940919}
 --- !u!1 &1035093124
 GameObject:
   m_ObjectHideFlags: 0

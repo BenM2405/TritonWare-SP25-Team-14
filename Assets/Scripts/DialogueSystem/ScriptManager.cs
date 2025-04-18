@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class ScriptManager : MonoBehaviour
 {
@@ -23,8 +24,7 @@ public class ScriptManager : MonoBehaviour
     private LinesSO.CharacterLine nextSegment;
 
     private bool isSceneRunning = false;
-    private bool isSpeaking = false;
-    private bool isSkipping = false;
+    private bool isSegmentRunning = false;
     private int state = 0;
 
 
@@ -40,9 +40,9 @@ public class ScriptManager : MonoBehaviour
     }
     void Update()
     {
-        if (isSpeaking && Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if (isSegmentRunning && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
         {
-            isSkipping = true;
+            playerSkipSegment();
         }
     }
 
@@ -75,6 +75,7 @@ public class ScriptManager : MonoBehaviour
         if (isSceneRunning)
         {
             //Debug.Log("Loading next segment!");
+            isSegmentRunning = true;
             DisableContinueButton();
             StopAllCoroutines();
             nextSegment = scriptLines.NextSegment();
@@ -85,6 +86,7 @@ public class ScriptManager : MonoBehaviour
             }
             else
             {
+                isSegmentRunning = false;
                 EndDialogue();
             }
         }
@@ -149,6 +151,7 @@ public class ScriptManager : MonoBehaviour
                     yield return new WaitForSeconds(0.5f);  // Trying to prevent popping noise from occurring by allowing safeStop before stopping
                     characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                     EnableContinueButton();
+                    isSegmentRunning = false;
                     yield break;
                 }
 
@@ -162,26 +165,33 @@ public class ScriptManager : MonoBehaviour
                 lineIndex++;
             } while (sentence == null);
             //Debug.Log("Printing line dialogue " + lineIndex);
-            characterTalkingEvent.setParameterByName("safeStop", 0);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("safeStop", 0);
             characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", true);
             for (int i = 0; i < sentence.Length; i++)
             {
-                if (isSkipping)
-                {
-                    // Instantly show the rest of the sentence
-                    dialogueText.text = sentence;
-                    break;
-                }
-
                 dialogueText.text += sentence[i];
                 yield return new WaitForSeconds(1 / characterTextSpeed);
             }
-            isSkipping = false;
-            EnableContinueButton();
 
-            characterTalkingEvent.setParameterByName("safeStop", 1);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("safeStop", 1);
             characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", false);
         }
+    }
+
+    private void playerSkipSegment()
+    {
+        StopAllCoroutines();
+        Debug.Log("Skipped segment!");
+        characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", false);
+        EnableContinueButton();
+        String temp = "";
+        for (int i = 0; i < nextSegment.lines.Count; i++)
+        {
+            temp += nextSegment.lines[i];
+        }
+        dialogueText.text = temp;
+        isSegmentRunning = false;
     }
 
     private object runLineCommand(LinesSO.LineCommand lineCommand)
