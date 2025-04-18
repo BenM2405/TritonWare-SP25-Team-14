@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: Level2
+  m_EditorClassIdentifier: 
+  rawText: "[LONGING] To set up a chance, {WAIT} only to be given the lance. {WAIT}
+    I was meant to be, {WAIT} yet I could never see what I sought to thee. \r\n\r\n[LONGING]
+    Come {WAIT} find {WAIT} me.\r\n\r\n{START_PUZZLE}\r\n\r\n[NARRATOR] The Nightmare
+    of Longing has been destroyed, {WAIT} yet this isn\u2019t the core monster. {WAIT}
+    Keep looking.\r"
+  characters:
+  - {fileID: 11400000, guid: 9b0be06a3113fa1448c36294ce08a9ac, type: 2}
+  - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
+  BackgroundMusicPath: event:/music/level2_music
+  sceneID: Level2
+  NextToLoad: 2
+  isNextScenePuzzle: 1

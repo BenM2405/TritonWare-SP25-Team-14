@@ -54,10 +54,7 @@ public class LinesSO : ScriptableObject
         return formattedScript[lineIndex++];
     }
 
-    public void SetLineIndex(int index)
-    {
-        lineIndex = index;
-    }
+    public void SetLineIndex(int i) => lineIndex = i;
 
     private void format(string rawText)
     {
@@ -180,6 +177,7 @@ public class LinesSO : ScriptableObject
             }
         }
     }
+    public List<CharacterLine> GetFormattedScript() => formattedScript;
 
     public class CharacterLine
     {

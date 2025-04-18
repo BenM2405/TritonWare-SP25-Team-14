@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: Level3LinesSO
+  m_EditorClassIdentifier: 
+  rawText: "[INDECISION] The fortress of lies, {WAIT} lies within lies. {WAIT}{WAIT}
+    When the keyman walked to retrieve the gold, {WAIT} he forgot the land that made
+    him so bold. {WAIT} What did he forget? {WAIT} What he wished to forfeit.\r\n\r\n[INDECISION]
+    Find my fortress {WAIT}{WAIT} in the dense forest.\r\n\r\n{START_PUZZLE}\r\n\r\n[NARRATOR]
+    The Nightmare of Indecision has been destroyed, {WAIT} yet the main monster is
+    nowhere to be found. {WAIT} Keep looking.\r"
+  characters:
+  - {fileID: 11400000, guid: 3f8729505fa8a02499d0083ec5c0082a, type: 2}
+  - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
+  BackgroundMusicPath: event:/music/level3_ending_music
+  sceneID: Level3
+  NextToLoad: Level4
+  isNextScenePuzzle: 1

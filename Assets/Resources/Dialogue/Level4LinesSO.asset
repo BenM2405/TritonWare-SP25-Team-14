@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: Level4LinesSO
+  m_EditorClassIdentifier: 
+  rawText: "[MOURNING] Music? {WAIT} More of this mold means more might? {WAIT} Because
+    might can\u2019t change what\u2019s right. {WAIT} What\u2019s to matter when
+    the father is lost to the latter? \r\n\r\n[MOURNING] If you choose to take the
+    long out of your great among. {WAIT}{WAIT} Make me wrong.\r\n\r\n{START_PUZZLE}\r\n\r\n[NARRATOR]
+    The Nightmare of Mourning is no more, {WAIT} yet no monster! {WAIT} Where can
+    the beast hide?\r"
+  characters:
+  - {fileID: 11400000, guid: 3b7e82c644ae8614bbc8902cbe695e49, type: 2}
+  - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
+  BackgroundMusicPath: event:/music/level4_music
+  sceneID: Level4
+  NextToLoad: Speech3
+  isNextScenePuzzle: 0

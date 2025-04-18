@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: EndingLinesSO
+  m_EditorClassIdentifier: 
+  rawText: "[NARRATOR] Suddenly, {WAIT} All-Mother sprang from her cursed sleep.
+    {WAIT} The weakened monster was helpless to fight back.\r\n\r\n[DISHARMONY] Wait
+    wait wait wait! {WAIT} Look, th- {WAIT} this was a misunderstanding. {WAIT} I-
+    {WAIT} uh, {WAIT} I didn\u2019t me- {WAIT} mean to accidentally, {WAIT} uhhh,
+    {WAIT} try to control you so that I can take over the dreams of everyone and
+    turn them into nightmares for my own pleasure! {WAIT} It was just an accident!\r\n\r\n[MOTHER]
+    The culprit is down! {WAIT} Sweetie, I highly appreciate your help in taking
+    this thing out, and as such I give you the power to decide its fate.\r\n\r\n[DISHARMONY]
+    Yeeeesss. {WAIT} The child decides the choice of mild. {WAIT} Great one.\r\n\r\n[SPIRIT]
+    Thank you, {WAIT} but I- {WAIT} I\u2019m meant to fix dreams, {WAIT} not destroy
+    nightmares! {WAIT} While I would like to, {WAIT} I don\u2019t want to accidentally
+    make things worse for you, All-Mother. {WAIT} So, it\u2019s all yours!\r\n\r\n[DISHARMONY]
+    Wait, no, I object! {WAIT} Please, child thing. {WAIT} Please try to destroy
+    me. {WAIT} You\u2019ll mess up so finely a- {WAIT} and I can be free again!\r\n\r\n[MOTHER]
+    Sorry! {WAIT} I made up my mind.\r\n\r\n[DISHARMONY] (YELL) nooooOOOOOOOO!!\r\n\r\n[NARRATOR]
+    (NORMAL) And with a flick of the thumb, {WAIT} the monster was transported to
+    a strange world, {WAIT} one full of\u2026 {WAIT} {YELL) Mootsies!?{WAIT} AH!
+    {WAIT}(NORMAL) Yes,{WAIT} to organize endlessly. {WAIT} Truly a vile punishment!\r\n\r\n[NARRATOR]
+    As for the Musician. {WAIT} She is frequently visited by the Elysian Spirit every
+    once in a while. {WAIT} The verdict is made: {WAIT} Her courage was restored
+    to its full glory. {WAIT} Fully shown as she begins to write down her first measure.
+    {WAIT} The first of many!\r\n\r\n[NARRATOR] THE END\r"
+  characters:
+  - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
+  - {fileID: 11400000, guid: a251bf670c6a4424f84197fe5b494342, type: 2}
+  - {fileID: 11400000, guid: 214801bbd213a444487581c59c0327da, type: 2}
+  - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
+  BackgroundMusicPath: event:/music/level3_ending_music
+  sceneID: Ending
+  NextToLoad: MainMenu
+  isNextScenePuzzle: 0

@@ -4,6 +4,7 @@ using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PuzzleManager : MonoBehaviour
 {
@@ -308,9 +309,13 @@ public class PuzzleManager : MonoBehaviour
             else
             {
                 Debug.Log("You beat a story level!");
+                GameConfig.resumePostPuzzle = true;
+                SceneManager.LoadScene("DialogueScene");
             }
         }
+
     }
+    
 
     void HighlightSelected()
     {

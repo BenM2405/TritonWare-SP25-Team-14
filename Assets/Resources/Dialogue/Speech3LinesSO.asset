@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: Speech3LinesSO
+  m_EditorClassIdentifier: 
+  rawText: "[SPIRIT] Your dreams, {WAIT} they\u2019re- {WAIT}{CONTINUE}\r\n\r\n[MUSICIAN]
+    Free..{WAIT} so free\u2026{WAIT}(YELL) Yes!\r\n\r\n[MUSICIAN] (NORMAL) Aw. thank
+    you! {WAIT} I already feel so clean and full!\r\n\r\n[SPIRIT] Yes, {WAIT} but
+    we didn\u2019t catch that big nightmare fella when I met you. {WAIT} Ugh, {WAIT}
+    where did it go?\r\n\r\n[MUSICIAN]: I\u2019m sure you\u2019ll get it soon. {WAIT}
+    And if you do meet it. {WAIT} Be sure to give it the power of music for me, {WAIT}
+    alright?\r\n\r\n[SPIRIT] Ahh, {WAIT} sure. {WAIT} Sure.\r\n\r\n[NARRATOR] Then,
+    {WAIT} a wave of danger has been felt. {WAIT} The spirit felt shivers, {WAIT}
+    a worst case scenario has happened.\r\n\r\n[SPIRIT] Oh no no no. \r\n\r\n[MUSICIAN]
+    Hey, {WAIT} it\u2019s that nightmare thing, {WAIT} right? \r\n\r\n[SPIRIT] Yeah,
+    {WAIT} and it\u2019s not good. (YELL) Ok see ya!\r\n\r\n[MUSICIAN] (YELL) Don\u2019t
+    forget. {WAIT} The power of music!\r\n\r\n[NARRATOR] At the Home Grounds.\r\n\r\n[SPIRIT]
+    All-Mother? {WAIT} Are you alright-\r\n\r\n[SPIRIT] No\u2026{WAIT}{WAIT}(YELL)
+    No! {WAIT} What are you doing to her!?\r"
+  characters:
+  - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
+  - {fileID: 11400000, guid: 27047cfd4b2af574c9c05d37678d3d46, type: 2}
+  - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
+  BackgroundMusicPath: event:/music/title_speech_music
+  sceneID: Speech3
+  NextToLoad: Level5
+  isNextScenePuzzle: 1

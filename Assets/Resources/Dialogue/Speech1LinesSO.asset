@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
+  m_Name: Speech1LinesSO
+  m_EditorClassIdentifier: 
+  rawText: "[NARRATOR] In the Home Grounds, {WAIT} The Lyrian Spirit awaits the judgement
+    of She Who Mounds: {WAIT}{WAIT} All-Mother is here.\r\n\r\n[SPIRIT] Majesty?\r\n\r\n[MOTHER]
+    Do you realize what you put yourself into? {WAIT} Do you know what happens when
+    the dreams of ADULTS are molded?\r\n\r\n[SPIRIT] Yeah, yeah. {WAIT} I know. {WAIT}
+    But she seemed so\u2026{WAIT} so\u2026{CONTINUE}\r\n\r\n[MOTHER] So what? {WAIT}
+    The dreams acting on one another is how we make fashion! {WAIT} Please don\u2019t
+    change them up for your sake, {WAIT} child.\r\n\r\n[SPIRIT] (YELL) No! {WAIT}
+    I\u2019m not doing it for their sake!\r\n\r\n[NARRATOR] (NORMAL) A cry could
+    be heard. {WAIT} One just had to ruin the time for mead.\r\n\r\n[MOTHER] You
+    know the consequences, {WAIT} child.\r\n\r\n[SPIRIT] Then you must know how little
+    I care to break them.\r"
+  characters:
+  - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
+  - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
+  - {fileID: 11400000, guid: 214801bbd213a444487581c59c0327da, type: 2}
+  BackgroundMusicPath: event:/music/title_speech_music
+  sceneID: Speech1
+  NextToLoad: 1
+  isNextScenePuzzle: 1

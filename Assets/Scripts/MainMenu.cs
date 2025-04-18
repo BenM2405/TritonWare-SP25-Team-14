@@ -8,6 +8,8 @@ public class MainMenu : MonoBehaviour
     public GameObject titleUI;
     public GameObject endless;
     public GameObject storyCanvas;
+    public GameObject mainButtons;
+    public GameObject backButton;
     public DynamicLevelLoader dynamicLevelLoader;
     private String titleMusicPath = "event:/music/title_speech_music";
     private EventInstance titleMusicEventInstance;
@@ -16,10 +18,17 @@ public class MainMenu : MonoBehaviour
     {
         titleMusicEventInstance = FMODUnity.RuntimeManager.CreateInstance(titleMusicPath);
         titleMusicEventInstance.start();
+        if (GameConfig.openStoryCanvas)
+        {
+            GameConfig.openStoryCanvas = false;
+            Story(); // starts level select
+        }
     }
     public void Story()
     {
         storyCanvas.SetActive(true);
+        mainButtons.SetActive(false);
+        backButton.SetActive(true);
         dynamicLevelLoader.RegenerateButtons();
     }
 
@@ -27,6 +36,16 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Called Endless");
         endless.SetActive(true);
+        backButton.SetActive(true);
+        mainButtons.SetActive(false);
+    }
+
+    public void Back()
+    {
+        mainButtons.SetActive(true);
+        storyCanvas.SetActive(false);
+        backButton.SetActive(false);
+        endless.SetActive(false);
     }
 
     public void Play2x2()
