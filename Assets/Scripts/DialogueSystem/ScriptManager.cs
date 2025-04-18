@@ -7,6 +7,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScriptManager : MonoBehaviour
 {
@@ -23,7 +24,9 @@ public class ScriptManager : MonoBehaviour
 
     private bool isSceneRunning = false;
     private bool isSpeaking = false;
+    private bool isSkipping = false;
     private int state = 0;
+
 
     // TODO: Have the dialogue pop up and pop down when scene is playing / ending, implement sprite animations for talking, Lerp or Slerp colors to transition between color accents
     // maybe implementing sound talking sfx swaps, speed increases / decreases, who knows lol
@@ -35,11 +38,19 @@ public class ScriptManager : MonoBehaviour
         characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         animator.SetBool("isSceneRunning", false);
     }
+    void Update()
+    {
+        if (isSpeaking && Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
+            isSkipping = true;
+        }
+    }
+
 
     public void LoadScript(LinesSO linesSO)
     {
         scriptLines = linesSO;
-        loadLines();
+        scriptLines.LoadLines();
     }
 
     [ContextMenu("Start Script")]
@@ -97,6 +108,9 @@ public class ScriptManager : MonoBehaviour
         isSceneRunning = false;
         animator.SetBool("isSceneRunning", false);
         Debug.Log("Dialogue has ended!");
+
+        GameConfig.isStoryMode = true;
+        SceneManager.LoadScene("PuzzleScene");
     }
 
     private void LoadCharacterData(CharacterSO character)
@@ -105,14 +119,17 @@ public class ScriptManager : MonoBehaviour
         characterName.text = character.Name;
         colorAccent.color = character.ColorAccent;
         characterTalkingEvent = FMODUnity.RuntimeManager.CreateInstance(character.talkingSFX);
+
+        Animator portraitAnimator = characterPortrait.GetComponent<Animator>();
+
         if (character.PortraitSpriteAnimatorController != null)
         {
             characterPortrait.GetComponent<Animator>().runtimeAnimatorController = character.PortraitSpriteAnimatorController;
             characterPortrait.GetComponent<Animator>().SetInteger("state", state);
         }
-        else
+        else if (portraitAnimator != null)
         {
-            characterPortrait.GetComponent<Animator>().runtimeAnimatorController = null;
+            portraitAnimator.runtimeAnimatorController = null;
         }
         characterPortrait.sprite = character.Sprite;
     }
@@ -147,11 +164,21 @@ public class ScriptManager : MonoBehaviour
             //Debug.Log("Printing line dialogue " + lineIndex);
             characterTalkingEvent.setParameterByName("safeStop", 0);
             characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", true);
-            foreach (char letter in sentence)
+            for (int i = 0; i < sentence.Length; i++)
             {
+                if (isSkipping)
+                {
+                    // Instantly show the rest of the sentence
+                    dialogueText.text = sentence;
+                    break;
+                }
+
+                dialogueText.text += sentence[i];
                 yield return new WaitForSeconds(1 / characterTextSpeed);
-                dialogueText.text += letter;
             }
+            isSkipping = false;
+            EnableContinueButton();
+
             characterTalkingEvent.setParameterByName("safeStop", 1);
             characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", false);
         }

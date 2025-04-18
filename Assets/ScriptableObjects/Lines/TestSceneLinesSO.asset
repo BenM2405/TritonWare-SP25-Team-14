@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: TestSceneLinesSO
   m_EditorClassIdentifier: 
   rawText: "[Test Character 1] I told you before. {WAIT} I already finished my homework.
-    {WAIT} I was enjoying my precious free time at my computer until you came in.\r\n\r\n[Test
-    Character 2] (YELL) But you should sleep! {WAIT} You have been up since- {CONTINUE}\r\n\r\n[Test
+    {WAIT} I was enjoying my precious free time at my computer until you came in.\r\n[Test
+    Character 2] (YELL) But you should sleep! {WAIT} You have been up since- {CONTINUE}\r\n[Test
     Character 1] You don\u2019t have to tell me twice. {WAIT} I hear ya so could
-    you just leave me alone and let me be at peace with my game.\r\n\r\n(THINK) When
+    you just leave me alone and let me be at peace with my game.\r\n(THINK) When
     will this guy leave me alone. {WAIT} I just hope he quickly leaves so I can get
-    back to some Minecraft.\r\n\r\n[Test Character 1] (NORMAL) Alright time to go.
-    {WAIT}{WAIT}. {WAIT}{WAIT}. {WAIT}{WAIT} Door is right there.{WAIT}{WAIT}. {WAIT}{WAIT}.
-    {WAIT}{WAIT}\r\n\r\n\r\n\r\n\r\n\r\n[Test Character 2] {WAIT}{WAIT} Fine. {WAIT}{WAIT}{WAIT}
-    Guess you don\u2019t want me then.\r\r\r\r"
+    back to some Minecraft.\r\n[Test Character 1] (NORMAL) Alright time to go. {WAIT}{WAIT}.
+    {WAIT}{WAIT}. {WAIT}{WAIT} Door is right there.{WAIT}{WAIT}. {WAIT}{WAIT}. {WAIT}{WAIT}\r\n[Test
+    Character 2] {WAIT}{WAIT} Fine. {WAIT}{WAIT}{WAIT} Guess you don\u2019t want
+    me then.\r"
   characters:
   - {fileID: 11400000, guid: 852111ce9e5ca8c40861fece1733d13a, type: 2}
   - {fileID: 11400000, guid: eaaa7ac719d12c041ac1331804c9bb0f, type: 2}
