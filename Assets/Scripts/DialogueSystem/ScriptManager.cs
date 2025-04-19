@@ -19,9 +19,7 @@ public class ScriptManager : MonoBehaviour
     [SerializeField] private Image colorAccent;
     [SerializeField] private Button continueButton;
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject levelLoader;
     private FMOD.Studio.EventInstance characterTalkingEvent;
-    private FMOD.Studio.EventInstance backgroundMusicEvent;
     [SerializeField] private float characterTextSpeed = 20f; // Formula: (How many seconds per letter printed) = 1 / characterTextSpeed
     private LinesSO.CharacterLine nextSegment;
 
@@ -32,7 +30,7 @@ public class ScriptManager : MonoBehaviour
 
     void Start()
     {
-        animator.SetBool("isSceneRunning", false); 
+        animator.SetBool("isSceneRunning", false);
     }
     void Update()
     {
@@ -42,10 +40,16 @@ public class ScriptManager : MonoBehaviour
         }
     }
 
-
-    public void LoadScript(LinesSO linesSO)
+    void OnDisable()
     {
-        scriptLines = linesSO;
+        characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        StopAllCoroutines();
+    }
+
+
+    public void LoadScript(LinesSO lines)
+    {
+        scriptLines = lines;
         scriptLines.LoadLines();
         isSceneRunning = true;
     }
@@ -54,11 +58,15 @@ public class ScriptManager : MonoBehaviour
     public void StartScript()
     {
         animator.gameObject.SetActive(true);
-
         StopAllCoroutines();
-        backgroundMusicEvent = FMODUnity.RuntimeManager.CreateInstance(scriptLines.BackgroundMusicPath);
+        if (!scriptLines.BackgroundMusicPath.Equals(LevelLoader.Instance.musicPath))
+        {
+            Debug.Log("Changing background music!");
+            LevelLoader.Instance.StopMusic();
+            LevelLoader.Instance.SetMusic(scriptLines.BackgroundMusicPath);
+            LevelLoader.Instance.StartMusic();
+        }
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("safeStop", 1);
-        backgroundMusicEvent.start();
         characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
         isSceneRunning = true;
@@ -71,15 +79,17 @@ public class ScriptManager : MonoBehaviour
     [ContextMenu("Next Segment")]
     public void NextSegment()
     {
+        // idk if all cases need StopAllCoroutines(), check in case
         if (isQueuedToStartPuzzle)
         {
+            StopAllCoroutines();
             isQueuedToStartPuzzle = false;
             isSegmentRunning = false;
             animator.SetBool("isSceneRunning", false); // hides the dialogue box if animated
             dialogueText.text = "";
             characterName.text = "";
             characterPortrait.sprite = null;
-            LevelLoader.Instance.LoadLevel(scriptLines.NextToLoad);
+            LevelLoader.Instance.LoadLevel(scriptLines.NextToLoad); // send to the puzzle
             return;
         }
 
@@ -108,11 +118,8 @@ public class ScriptManager : MonoBehaviour
         }
     }
 
-
-
     public void ReadLines()
     {
-        characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         StopAllCoroutines();
         characterTalkingEvent.start();
         StartCoroutine(TypeSentence());
@@ -122,8 +129,7 @@ public class ScriptManager : MonoBehaviour
     {
         isSceneRunning = false;
         animator.SetBool("isSceneRunning", false);
-        backgroundMusicEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
+        LevelLoader.Instance.StopMusic();
         StartCoroutine(DelayForNextScene());
     }
 
@@ -143,9 +149,9 @@ public class ScriptManager : MonoBehaviour
         {
             GameConfig.isStoryMode = true;
 
-            if (levelLoader != null)
+            if (LevelLoader.Instance != null)
             {
-                levelLoader.GetComponent<LevelLoader>().LoadLevel(scriptLines.NextToLoad);
+                LevelLoader.Instance.GetComponent<LevelLoader>().LoadLevel(scriptLines.NextToLoad);
             }
 
             SceneManager.LoadScene("PuzzleScene");
@@ -265,14 +271,9 @@ public class ScriptManager : MonoBehaviour
                 break;
 
             case LinesSO.LineCommand.Action_START_PUZZLE:
-                //TODO: This section needs to start the puzzle found in the scene. On the puzzle side, upon level completion, the script needs to call NextSegment() located here
                 Debug.Log("[ScriptManager] START_PUZZLE command received.");
-                // this should only be called when the dialogue is actively in a puzzle
-                // make sure when skipping, it does not skip this format
-                // when continue is hit, hide the dialogue box and start the puzzle
                 isQueuedToStartPuzzle = true;
-                EnableContinueButton();
-                // when puzzle is complete, call NextSegment() which should show the dialogue box
+                NextSegment();
                 break;
 
             case LinesSO.LineCommand.Format_THINK:

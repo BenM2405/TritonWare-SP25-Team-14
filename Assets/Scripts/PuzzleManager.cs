@@ -26,6 +26,7 @@ public class PuzzleManager : MonoBehaviour
     private string endlessPuzzleMusicPath = "event:/music/endless_music";
     private string levelCompleteSFXPath = "event:/sfx/puzzle/level_complete";
     private string noteSwapSFXPath = "event:/sfx/puzzle/note_swap";
+    private string noteSelectSFXPath = "event:/sfx/puzzle/note_select";
 
     void Start()
     {
@@ -87,6 +88,11 @@ public class PuzzleManager : MonoBehaviour
         RuntimeManager.PlayOneShot(noteSwapSFXPath);
     }
 
+    private void playNoteSelectSFX()
+    {
+        RuntimeManager.PlayOneShot(noteSelectSFXPath);
+    }
+
     System.Collections.IEnumerator RegeneratePuzzleAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -98,6 +104,7 @@ public class PuzzleManager : MonoBehaviour
 
         InitializeBalancedGrids();
         HighlightSelected();
+        startEndlessPuzzleMusic();
     }
 
     void EnableRelevantTiles()
@@ -262,8 +269,9 @@ public class PuzzleManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (secondselectedPos == null)
+            if (secondselectedPos == null || selectedPos == secondselectedPos.Value)
             {
+                playNoteSelectSFX();
                 secondselectedPos = selectedPos;
             }
             else
@@ -276,7 +284,10 @@ public class PuzzleManager : MonoBehaviour
                     playNoteSwapSFX();
                     SwapTiles(first, second);
                 }
-
+                else
+                {
+                    playNoteSelectSFX();
+                }
                 secondselectedPos = null;
                 HighlightSelected();
             }
@@ -304,18 +315,25 @@ public class PuzzleManager : MonoBehaviour
 
             if (!GameConfig.isStoryMode)
             {
-                StartCoroutine(RegeneratePuzzleAfterDelay(1f));
+                stopEndlessPuzzleMusic();
+                StartCoroutine(RegeneratePuzzleAfterDelay(3f));
             }
             else
             {
                 Debug.Log("You beat a story level!");
                 GameConfig.resumePostPuzzle = true;
-                SceneManager.LoadScene("DialogueScene");
+                playPuzzleCompleteSFX();
+                StartCoroutine(WaitBeforeTransition(3f));
             }
         }
 
     }
-    
+
+    IEnumerator WaitBeforeTransition(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene("DialogueScene");
+    }
 
     void HighlightSelected()
     {
@@ -418,7 +436,7 @@ public class PuzzleManager : MonoBehaviour
                 }
             }
         }
-        playPuzzleCompleteSFX();
+        LevelLoader.Instance.StopMusic();
         return true;
     }
 

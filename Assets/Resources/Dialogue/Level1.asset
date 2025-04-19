@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  rawText: "[NARRATOR] Heh {WAIT}\n[NARRATOR] {START_PUZZLE}\n\n[SPIRIT] Who, {WAIT}
-    what are you?\r\n\r\n[???] You know, {WAIT} nightmares are the stuff of dreams.
-    {WAIT} Come find me, {WAIT} then maybe you can find your dream.\r\n\r\n[SPIRIT]
-    No no, {WAIT} (YELL) WAIT!\r\n\r\n[NARRATOR] (NORMAL) Just as the entity voiced
-    its claim, {WAIT} did it disappear without a trace.\n\r"
+  rawText: "[NARRATOR] Heh {WAIT}\n\n{START_PUZZLE}\n\n[SPIRIT] Who, {WAIT} what
+    are you?\r\n\r\n[???] You know, {WAIT} nightmares are the stuff of dreams. {WAIT}
+    Come find me, {WAIT} then maybe you can find your dream.\r\n\r\n[SPIRIT] No no,
+    {WAIT} (YELL) WAIT!\r\n\r\n[NARRATOR] (NORMAL) Just as the entity voiced its
+    claim, {WAIT} did it disappear without a trace.\n\r"
   characters:
   - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
   - {fileID: 11400000, guid: 35852a5d02f25934ea67f25e3046130c, type: 2}

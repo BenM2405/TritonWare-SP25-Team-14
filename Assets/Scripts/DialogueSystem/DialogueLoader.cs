@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueLoader : MonoBehaviour
 {
     [SerializeField] private ScriptManager scriptManager;
+
     void Start()
     {
         string levelName = LevelLoader.Instance.levelToLoad;
@@ -49,6 +50,7 @@ public class DialogueLoader : MonoBehaviour
         }
 
         linesSO.SetLineIndex(index);
+        LevelLoader.Instance.StartMusic();
     }
 
 }
