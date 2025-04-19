@@ -1,14 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Animations;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 public class ScriptManager : MonoBehaviour
 {
@@ -19,10 +14,11 @@ public class ScriptManager : MonoBehaviour
     [SerializeField] private Image colorAccent;
     [SerializeField] private Button continueButton;
     [SerializeField] private Animator animator;
-    private FMOD.Studio.EventInstance characterTalkingEvent;
-    [SerializeField] private float characterTextSpeed = 20f; // Formula: (How many seconds per letter printed) = 1 / characterTextSpeed
-    private LinesSO.CharacterLine nextSegment;
 
+    private FMOD.Studio.EventInstance characterTalkingEvent;
+    [SerializeField] private float characterTextSpeed = 20f;
+
+    private LinesSO.CharacterLine nextSegment;
     private bool isSceneRunning = false;
     private bool isSegmentRunning = false;
     private bool isQueuedToStartPuzzle = false;
@@ -32,6 +28,7 @@ public class ScriptManager : MonoBehaviour
     {
         animator.SetBool("isSceneRunning", false);
     }
+
     void Update()
     {
         if (isSegmentRunning && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
@@ -46,7 +43,6 @@ public class ScriptManager : MonoBehaviour
         StopAllCoroutines();
     }
 
-
     public void LoadScript(LinesSO lines)
     {
         scriptLines = lines;
@@ -59,13 +55,14 @@ public class ScriptManager : MonoBehaviour
     {
         animator.gameObject.SetActive(true);
         StopAllCoroutines();
+
         if (!scriptLines.BackgroundMusicPath.Equals(LevelLoader.Instance.musicPath))
         {
-            Debug.Log("Changing background music!");
             LevelLoader.Instance.StopMusic();
             LevelLoader.Instance.SetMusic(scriptLines.BackgroundMusicPath);
             LevelLoader.Instance.StartMusic();
         }
+
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("safeStop", 1);
         characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
@@ -74,22 +71,19 @@ public class ScriptManager : MonoBehaviour
         NextSegment();
     }
 
-
-
     [ContextMenu("Next Segment")]
     public void NextSegment()
     {
-        // idk if all cases need StopAllCoroutines(), check in case
         if (isQueuedToStartPuzzle)
         {
             StopAllCoroutines();
             isQueuedToStartPuzzle = false;
             isSegmentRunning = false;
-            animator.SetBool("isSceneRunning", false); // hides the dialogue box if animated
+            animator.SetBool("isSceneRunning", false);
             dialogueText.text = "";
             characterName.text = "";
             characterPortrait.sprite = null;
-            LevelLoader.Instance.LoadLevel(scriptLines.NextToLoad); // send to the puzzle
+            LevelLoader.Instance.LoadLevel(scriptLines.NextToLoad);
             return;
         }
 
@@ -100,7 +94,7 @@ public class ScriptManager : MonoBehaviour
             DisableContinueButton();
             StopAllCoroutines();
 
-            nextSegment = scriptLines.NextSegment(); // ← now we know it's safe
+            nextSegment = scriptLines.NextSegment();
             if (nextSegment != null)
             {
                 LoadCharacterData(nextSegment.Character);
@@ -111,10 +105,6 @@ public class ScriptManager : MonoBehaviour
                 isSegmentRunning = false;
                 EndDialogue();
             }
-        }
-        else
-        {
-            Debug.LogError("Start script first! - StartScript()");
         }
     }
 
@@ -148,12 +138,7 @@ public class ScriptManager : MonoBehaviour
         else if (scriptLines.isNextScenePuzzle)
         {
             GameConfig.isStoryMode = true;
-
-            if (LevelLoader.Instance != null)
-            {
-                LevelLoader.Instance.GetComponent<LevelLoader>().LoadLevel(scriptLines.NextToLoad);
-            }
-
+            LevelLoader.Instance.LoadLevel(scriptLines.NextToLoad);
             SceneManager.LoadScene("PuzzleScene");
         }
         else
@@ -161,11 +146,9 @@ public class ScriptManager : MonoBehaviour
             GameConfig.isStoryMode = false;
             GameConfig.resumePostPuzzle = false;
             GameConfig.openStoryCanvas = true;
-
             SceneManager.LoadScene("MainMenu");
         }
     }
-
 
     private void LoadCharacterData(CharacterSO character)
     {
@@ -179,53 +162,46 @@ public class ScriptManager : MonoBehaviour
         colorAccent.color = character.ColorAccent;
         characterTalkingEvent = FMODUnity.RuntimeManager.CreateInstance(character.talkingSFX);
 
-        Animator portraitAnimator = characterPortrait.GetComponent<Animator>();
-
-        if (character.PortraitSpriteAnimatorController != null)
-        {
-            characterPortrait.GetComponent<Animator>().runtimeAnimatorController = character.PortraitSpriteAnimatorController;
-            characterPortrait.GetComponent<Animator>().SetInteger("state", state);
-        }
-        else if (portraitAnimator != null)
-        {
-            portraitAnimator.runtimeAnimatorController = null;
-        }
-
         characterPortrait.sprite = character.Sprite;
-    }
 
+        var anim = characterPortrait.GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.SetInteger("state", state);
+        }
+    }
 
     IEnumerator TypeSentence()
     {
         dialogueText.text = "";
         int lineIndex = 0;
         string sentence;
+
         while (true)
         {
             do
             {
                 if (lineIndex >= nextSegment.lines.Count)
                 {
-                    Debug.Log("Reached end of segment!");
-                    yield return new WaitForSeconds(0.5f);  // Trying to prevent popping noise from occurring by allowing safeStop before stopping
+                    yield return new WaitForSeconds(0.5f);
                     characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                     EnableContinueButton();
                     isSegmentRunning = false;
                     yield break;
                 }
 
-                //Debug.Log("Reading line " + lineIndex);
                 sentence = nextSegment.lines[lineIndex];
                 if (sentence == null)
                 {
-                    //Debug.Log("Dialogue not found, running command!");
                     yield return runLineCommand(nextSegment.lineCommands[lineIndex]);
                 }
+
                 lineIndex++;
             } while (sentence == null);
-            //Debug.Log("Printing line dialogue " + lineIndex);
+
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("safeStop", 0);
-            characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", true);
+            characterPortrait.GetComponent<Animator>()?.SetBool("isSpeaking", true);
+
             for (int i = 0; i < sentence.Length; i++)
             {
                 dialogueText.text += sentence[i];
@@ -233,7 +209,7 @@ public class ScriptManager : MonoBehaviour
             }
 
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("safeStop", 1);
-            characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", false);
+            characterPortrait.GetComponent<Animator>()?.SetBool("isSpeaking", false);
         }
     }
 
@@ -241,7 +217,7 @@ public class ScriptManager : MonoBehaviour
     {
         StopAllCoroutines();
         characterTalkingEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        characterPortrait.GetComponent<Animator>().SetBool("isSpeaking", false);
+        characterPortrait.GetComponent<Animator>()?.SetBool("isSpeaking", false);
 
         string temp = "";
         for (int i = 0; i < nextSegment.lines.Count; i++)
@@ -249,10 +225,11 @@ public class ScriptManager : MonoBehaviour
             if (nextSegment.lineCommands[i] == LinesSO.LineCommand.Action_START_PUZZLE)
             {
                 runLineCommand(LinesSO.LineCommand.Action_START_PUZZLE);
-                dialogueText.text = ""; // Don’t show further text
+                dialogueText.text = "";
                 isSegmentRunning = false;
-                return; // ← stop here to wait for user
+                return;
             }
+
             temp += nextSegment.lines[i];
         }
 
@@ -260,7 +237,6 @@ public class ScriptManager : MonoBehaviour
         isSegmentRunning = false;
         EnableContinueButton();
     }
-
 
     private object runLineCommand(LinesSO.LineCommand lineCommand)
     {
@@ -270,40 +246,34 @@ public class ScriptManager : MonoBehaviour
         {
             case LinesSO.LineCommand.Action_WAIT:
                 return new WaitForSeconds(1f);
-
             case LinesSO.LineCommand.Action_CONTINUE:
                 StopAllCoroutines();
                 isSegmentRunning = false;
                 EnableContinueButton();
                 break;
-
             case LinesSO.LineCommand.Action_START_PUZZLE:
-                Debug.Log("[ScriptManager] START_PUZZLE command received.");
                 isQueuedToStartPuzzle = true;
                 NextSegment();
                 break;
-
             case LinesSO.LineCommand.Format_THINK:
                 state = 3;
                 dialogueText.fontStyle = FontStyles.Italic;
                 break;
-
             case LinesSO.LineCommand.Format_SAD:
                 state = 2;
                 dialogueText.fontStyle = FontStyles.Normal;
                 break;
-
             case LinesSO.LineCommand.Format_YELL:
                 state = 1;
                 dialogueText.fontStyle = FontStyles.Bold;
                 break;
-
             case LinesSO.LineCommand.Format_NORMAL:
                 state = 0;
                 dialogueText.fontStyle = FontStyles.Normal;
                 break;
         }
-        characterPortrait.GetComponent<Animator>().SetInteger("state", state);
+
+        characterPortrait.GetComponent<Animator>()?.SetInteger("state", state);
         return null;
     }
 
