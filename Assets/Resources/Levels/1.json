@@ -1,6 +1,17 @@
 {
     "width": 2,
     "height": 2,
-    "playerSymbols": ["Circle", "Square", "Circle", "Square"],
-    "targetSymbols": ["Square", "Circle", "Square", "Circle"]
+    "playerSymbols": [
+        "Star",
+        "Moon",
+        "Star",
+        "Moon"
+    ],
+    "targetSymbols": [
+        "Star",
+        "Star",
+        "Moon",
+        "Moon"
+    ],
+    "par": 3
 }

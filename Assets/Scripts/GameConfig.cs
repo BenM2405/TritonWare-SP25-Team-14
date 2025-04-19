@@ -10,4 +10,5 @@ public static class GameConfig
     public static bool resumePostPuzzle = false;
     public static bool completedPostPuzzle = false;
     public static bool openStoryCanvas = false;
+    public static bool isEndlessMode = false;
 }

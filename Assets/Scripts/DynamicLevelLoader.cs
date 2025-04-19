@@ -4,12 +4,24 @@ using TMPro;
 using System.IO;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
+using System.Collections.Generic;
+
+[System.Serializable]
+public class LevelMetadata
+{
+    public int width;
+    public int height;
+    public List<string> playerSymbols;
+    public List<string> targetSymbols;
+    public int par;
+}
 
 public class DynamicLevelLoader : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public Transform buttonContainer;
     [SerializeField] GameObject menuManager;
+
     void Start()
     {
         LoadLevelButtons();
@@ -17,19 +29,21 @@ public class DynamicLevelLoader : MonoBehaviour
 
     void LoadLevelButtons()
     {
-        //Jsons
         TextAsset[] levelFiles = Resources.LoadAll<TextAsset>("Levels");
 
-        foreach (TextAsset level in levelFiles)
+        foreach (TextAsset levelFile in levelFiles)
         {
+            LevelMetadata metadata = JsonUtility.FromJson<LevelMetadata>(levelFile.text);
+            string buttonLabel = levelFile.name;
+
             GameObject btnObj = Instantiate(buttonPrefab, buttonContainer);
-            btnObj.name = $"Btn_{level.name}";
+            btnObj.name = $"Btn_{levelFile.name}";
+            btnObj.GetComponentInChildren<TextMeshProUGUI>().text = buttonLabel;
 
-            btnObj.GetComponentInChildren<TextMeshProUGUI>().text = level.name;
-
+            string levelName = levelFile.name;
             btnObj.GetComponent<Button>().onClick.AddListener(() =>
             {
-                PlayStoryLevel(level.name);
+                PlayStoryLevel(levelName);
             });
         }
     }
@@ -51,6 +65,4 @@ public class DynamicLevelLoader : MonoBehaviour
         GameConfig.isStoryMode = true;
         SceneManager.LoadScene("DialogueScene");
     }
-
-
 }

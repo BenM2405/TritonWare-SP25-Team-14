@@ -1,0 +1,41 @@
+{
+    "width": 4,
+    "height": 4,
+    "playerSymbols": [
+        "Comet",
+        "Moon",
+        "Star",
+        "Comet",
+        "Comet",
+        "Star",
+        "Moon",
+        "Comet",
+        "Star",
+        "Star",
+        "Moon",
+        "Moon",
+        "Star",
+        "Moon",
+        "Comet",
+        "Star"
+    ],
+    "targetSymbols": [
+        "Comet",
+        "Comet",
+        "Moon",
+        "Comet",
+        "Moon",
+        "Moon",
+        "Star",
+        "Moon",
+        "Star",
+        "Comet",
+        "Star",
+        "Star",
+        "Moon",
+        "Star",
+        "Comet",
+        "Star"
+    ],
+    "par": 12
+}

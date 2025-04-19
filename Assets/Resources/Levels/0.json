@@ -1,0 +1,17 @@
+{
+    "width": 1,
+    "height": 4,
+    "playerSymbols": [
+        "Star",
+        "Moon",
+        "Star",
+        "Moon"
+    ],
+    "targetSymbols": [
+        "Moon",
+        "Star",
+        "Moon",
+        "Star"
+    ],
+    "par": 3
+}

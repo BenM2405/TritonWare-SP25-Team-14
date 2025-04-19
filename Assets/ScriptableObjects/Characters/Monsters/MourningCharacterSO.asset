@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MourningCharacterSO
   m_EditorClassIdentifier: 
   Name: MOURNING
-  Sprite: {fileID: 21300000, guid: 1e0f2b45945c8254abd59f40d783c11f, type: 3}
+  Sprite: {fileID: 21300000, guid: 0f44b8968b709bb4f805d1beb6e8102a, type: 3}
   ColorAccent: {r: 0.90943396, g: 0.02849134, b: 0, a: 1}
   talkingSFX: event:/sfx/dialogue/monster_talking_sfx
   PortraitSpriteAnimatorController: {fileID: 0}

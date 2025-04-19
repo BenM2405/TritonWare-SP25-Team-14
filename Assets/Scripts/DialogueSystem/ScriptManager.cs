@@ -169,7 +169,12 @@ public class ScriptManager : MonoBehaviour
 
     private void LoadCharacterData(CharacterSO character)
     {
-        //Debug.Log("Loading character data...");
+        if (character == null)
+        {
+            Debug.LogWarning("[ScriptManager] Skipping character load because CharacterSO is null.");
+            return;
+        }
+
         characterName.text = character.Name;
         colorAccent.color = character.ColorAccent;
         characterTalkingEvent = FMODUnity.RuntimeManager.CreateInstance(character.talkingSFX);
@@ -185,8 +190,10 @@ public class ScriptManager : MonoBehaviour
         {
             portraitAnimator.runtimeAnimatorController = null;
         }
+
         characterPortrait.sprite = character.Sprite;
     }
+
 
     IEnumerator TypeSentence()
     {

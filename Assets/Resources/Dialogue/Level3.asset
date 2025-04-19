@@ -10,18 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
-  m_Name: Level3LinesSO
+  m_Name: Level3
   m_EditorClassIdentifier: 
-  rawText: "[INDECISION] The fortress of lies, {WAIT} lies within lies. {WAIT}{WAIT}
+  rawText: '[INDECISION] The fortress of lies, {WAIT} lies within lies. {WAIT}{WAIT}
     When the keyman walked to retrieve the gold, {WAIT} he forgot the land that made
-    him so bold. {WAIT} What did he forget? {WAIT} What he wished to forfeit.\r\n\r\n[INDECISION]
-    Find my fortress {WAIT}{WAIT} in the dense forest.\r\n\r\n{START_PUZZLE}\r\n\r\n[NARRATOR]
+    him so bold. {WAIT} What did he forget? {WAIT} What he wished to forfeit.
+
+    
+
+    [INDECISION]
+    Find my fortress {WAIT}{WAIT} in the dense forest.
+
+    
+
+    {START_PUZZLE}
+
+    
+
+    [NARRATOR]
     The Nightmare of Indecision has been destroyed, {WAIT} yet the main monster is
-    nowhere to be found. {WAIT} Keep looking.\r"
+    nowhere to be found. {WAIT} Keep looking.
+
+'
   characters:
   - {fileID: 11400000, guid: 3f8729505fa8a02499d0083ec5c0082a, type: 2}
   - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
   BackgroundMusicPath: event:/music/level3_ending_music
   sceneID: Level3
-  NextToLoad: Level4
+  NextToLoad: 3
   isNextScenePuzzle: 1

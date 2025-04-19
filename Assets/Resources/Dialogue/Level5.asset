@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
-  m_Name: Level5LinesSO
+  m_Name: Level5
   m_EditorClassIdentifier: 
   rawText: '[???] (NORMAL) Do you see it now? {WAIT} Nightmares are without balance,
     {WAIT} that is true. {WAIT} Dreams are folly that never give fashion, {WAIT}
@@ -45,5 +45,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
   BackgroundMusicPath: event:/music/level5_music
   sceneID: Level5
-  NextToLoad: Ending
-  isNextScenePuzzle: 0
+  NextToLoad: 5
+  isNextScenePuzzle: 1

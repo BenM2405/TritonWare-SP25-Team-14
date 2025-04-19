@@ -1,6 +1,41 @@
 {
-    "width": 2,
-    "height": 2,
-    "playerSymbols": ["Circle", "Circle", "Square", "Square"],
-    "targetSymbols": ["Square", "Square", "Circle", "Circle"]
+    "width": 4,
+    "height": 4,
+    "playerSymbols": [
+        "Star",
+        "Comet",
+        "Moon",
+        "Star",
+        "Comet",
+        "Comet",
+        "Moon",
+        "Star",
+        "Comet",
+        "Star",
+        "Comet",
+        "Moon",
+        "Moon",
+        "Star",
+        "Star",
+        "Moon"
+    ],
+    "targetSymbols": [
+        "Star",
+        "Comet",
+        "Moon",
+        "Moon",
+        "Moon",
+        "Comet",
+        "Star",
+        "Moon",
+        "Star",
+        "Comet",
+        "Comet",
+        "Star",
+        "Star",
+        "Comet",
+        "Star",
+        "Moon"
+    ],
+    "par": 12
 }

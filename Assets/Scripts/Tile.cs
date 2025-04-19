@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour
     public Image symbolImage;
     public GameObject highlightObject;
 
-    public enum SymbolType {Circle, Square};
+    public enum SymbolType {Star, Moon, Comet, Saturn, BHole};
     public SymbolType currentSymbol;
 
     public void SetSymbol(Sprite sprite, SymbolType type)

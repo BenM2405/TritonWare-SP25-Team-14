@@ -8,6 +8,11 @@ public class DialogueLoader : MonoBehaviour
 
     void Start()
     {
+        if (GameConfig.isEndlessMode)
+        {
+            Debug.Log("Endless Mode");
+            return;
+        }
         string levelName = LevelLoader.Instance.levelToLoad;
         Debug.Log($"[DialogueLoader] Attempting to load: Resources/Dialogue/Level{levelName}");
 

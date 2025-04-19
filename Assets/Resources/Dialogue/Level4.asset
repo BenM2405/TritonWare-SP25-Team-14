@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
-  m_Name: Level4LinesSO
+  m_Name: Level4
   m_EditorClassIdentifier: 
   rawText: "[MOURNING] Music? {WAIT} More of this mold means more might? {WAIT} Because
     might can\u2019t change what\u2019s right. {WAIT} What\u2019s to matter when
@@ -23,5 +23,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 296c88d30f92d8541bdf975964640d32, type: 2}
   BackgroundMusicPath: event:/music/level4_music
   sceneID: Level4
-  NextToLoad: Speech3
-  isNextScenePuzzle: 0
+  NextToLoad: 4
+  isNextScenePuzzle: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpiritCharacterSO
   m_EditorClassIdentifier: 
   Name: SPIRIT
-  Sprite: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
+  Sprite: {fileID: 21300000, guid: e5efd74de82c4234d8ea1c78fdd09b60, type: 3}
   ColorAccent: {r: 0.598398, g: 0.71374905, b: 0.735849, a: 1}
   talkingSFX: event:/sfx/dialogue/goofy_talking_sfx
   PortraitSpriteAnimatorController: {fileID: 0}

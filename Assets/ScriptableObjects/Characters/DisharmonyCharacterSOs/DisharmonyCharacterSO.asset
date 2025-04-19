@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DisharmonyCharacterSO
   m_EditorClassIdentifier: 
   Name: DISHARMONY
-  Sprite: {fileID: 21300000, guid: 61ac40b257b3a994f841856ad38b2b6b, type: 3}
+  Sprite: {fileID: 21300000, guid: 6375707c94300df40a92b0ca42f6bcee, type: 3}
   ColorAccent: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   talkingSFX: event:/sfx/dialogue/evil_talking_sfx
   PortraitSpriteAnimatorController: {fileID: 0}

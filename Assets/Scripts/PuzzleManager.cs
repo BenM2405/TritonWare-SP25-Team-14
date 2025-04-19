@@ -5,11 +5,12 @@ using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PuzzleManager : MonoBehaviour
 {
-    public int gridWidth = 3;
-    public int gridHeight = 3;
+    public int gridWidth;
+    public int gridHeight;
 
     public Tile[,] tiles;
     public Tile[,] targetTiles;
@@ -18,8 +19,28 @@ public class PuzzleManager : MonoBehaviour
 
     public Sprite circleSprite;
     public Sprite squareSprite;
+    [System.Serializable]
+    public class SymbolSpritePair
+    {
+        public Tile.SymbolType symbol;
+        public Sprite sprite;
+    }
+    [SerializeField] private GameObject tutorialPopup;
+    [SerializeField] private TextMeshProUGUI tutorialText;
+    [SerializeField] private float tutorialDisplayTime = 10f;
+
+
+    public List<SymbolSpritePair> symbolSpritePairs;
+    private Dictionary<Tile.SymbolType, Sprite> symbolToSprite;
+
+    public GameObject tilePrefab;
+    public Transform puzzleGridTransform;
+    public GameObject targetTilePrefab;
+    public Transform targetGridTransform;
+
 
     public TMPro.TextMeshProUGUI parText;
+    private int levelPar = 0;
     public TMPro.TextMeshProUGUI moveText;
     public int playerMoves = 0;
     private EventInstance endlessPuzzleMusicEventInstance;
@@ -30,11 +51,17 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
+        InitializeSymbolToSpriteMap();
         if (GameConfig.isStoryMode)
         {
             ResetAllTilePositions();
             LoadLevelFromFile(LevelLoader.Instance.levelToLoad);
-            // ScriptManager handles the background music
+
+            //Tutorial logic
+            if (LevelLoader.Instance.levelToLoad == "0")
+            {
+                ShowTutorialMessage("Use the arrow keys to move.\nPress SPACE once to select the first tile,\nand again to select the second.\nTiles will swap if they are adjacent!");
+            }
         }
         else
         {
@@ -44,6 +71,7 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
+
     public void ConfigureGrid(int width, int height)
     {
         gridWidth = width;
@@ -52,9 +80,8 @@ public class PuzzleManager : MonoBehaviour
         tiles = new Tile[gridWidth, gridHeight];
         targetTiles = new Tile[gridWidth, gridHeight];
 
-        EnableRelevantTiles();
-        AssignPlayerTiles();
-        AssignTargetTiles();
+        CreateTiles();
+        CreateTargetTiles();
         DisableUnusedTileGraphics();
         InitializeBalancedGrids();
         HighlightSelected();
@@ -65,6 +92,69 @@ public class PuzzleManager : MonoBehaviour
         HandleInput();
         HandleSwap();
     }
+
+    void CreateTiles()
+    {
+        foreach (Transform child in puzzleGridTransform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        tiles = new Tile[gridWidth, gridHeight];
+
+        GridLayoutGroup layout = puzzleGridTransform.GetComponent<GridLayoutGroup>();
+        layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        layout.constraintCount = gridWidth;
+
+        RectTransform gridRect = puzzleGridTransform.GetComponent<RectTransform>();
+        float width = gridRect.rect.width;
+        float height = gridRect.rect.height;
+        float cellSize = Mathf.Min(width / gridWidth, height / gridHeight);
+        layout.cellSize = new Vector2(cellSize, cellSize);
+
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                GameObject tileObj = Instantiate(tilePrefab, puzzleGridTransform);
+                Tile tile = tileObj.GetComponent<Tile>();
+                tile.gridPos = new Vector2Int(x, y);
+                tiles[x, y] = tile;
+            }
+        }
+    }
+    void CreateTargetTiles()
+    {
+        foreach (Transform child in targetGridTransform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        targetTiles = new Tile[gridWidth, gridHeight];
+
+        GridLayoutGroup layout = targetGridTransform.GetComponent<GridLayoutGroup>();
+        layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        layout.constraintCount = gridWidth;
+
+        RectTransform gridRect = targetGridTransform.GetComponent<RectTransform>();
+        float width = gridRect.rect.width;
+        float height = gridRect.rect.height;
+        float cellSize = Mathf.Min(width / gridWidth, height / gridHeight);
+        layout.cellSize = new Vector2(cellSize, cellSize);
+
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                GameObject tileObj = Instantiate(targetTilePrefab, targetGridTransform);
+                Tile tile = tileObj.GetComponent<Tile>();
+                tile.gridPos = new Vector2Int(x, y);
+                targetTiles[x, y] = tile;
+            }
+        }
+    }
+
+
 
     private void startEndlessPuzzleMusic()
     {
@@ -107,51 +197,6 @@ public class PuzzleManager : MonoBehaviour
         startEndlessPuzzleMusic();
     }
 
-    void EnableRelevantTiles()
-    {
-        for (int x = 0; x < gridWidth; x++)
-        {
-            for (int y = 0; y < gridHeight; y++)
-            {
-                string playerName = $"Tile_{x}_{y}";
-                string targetName = $"TargetTile_{x}_{y}";
-
-                GameObject playerTile = GameObject.Find(playerName);
-                GameObject targetTile = GameObject.Find(targetName);
-
-                bool shouldBeActive = (x < gridWidth && y < gridHeight);
-
-                if (playerTile != null) playerTile.SetActive(shouldBeActive);
-                if (targetTile != null) targetTile.SetActive(shouldBeActive);
-            }
-        }
-    }
-
-
-    void AssignPlayerTiles()
-    {
-        for (int x = 0; x < gridWidth; x++)
-        {
-            for (int y = 0; y < gridHeight; y++)
-            {
-                string objName = $"Tile_{x}_{y}";
-                GameObject tileObj = GameObject.Find(objName);
-
-                if (tileObj == null)
-                {
-                    Debug.LogError($"Could not find GameObject: {objName}");
-                    continue;
-                }
-
-                tileObj.SetActive(true);
-                Tile tile = tileObj.GetComponent<Tile>();
-                tile.gridPos = new Vector2Int(x, y);
-                tiles[x, y] = tile;
-            }
-        }
-    }
-
-
     void AssignTargetTiles()
     {
         for (int x = 0; x < gridWidth; x++)
@@ -170,34 +215,67 @@ public class PuzzleManager : MonoBehaviour
     void InitializeBalancedGrids()
     {
         int total = gridWidth * gridHeight;
-        List<Tile.SymbolType> symbols = new List<Tile.SymbolType>();
-
-        for (int i = 0; i < total; i++)
+        List<Tile.SymbolType> availableSymbols = new List<Tile.SymbolType>(symbolToSprite.Keys);
+        if (availableSymbols.Count == 0)
         {
-            symbols.Add(i % 2 == 0 ? Tile.SymbolType.Circle : Tile.SymbolType.Square);
+            Debug.LogError("No available symbols with mapped sprites.");
+            return;
         }
 
-        List<Tile.SymbolType> playerSymbols;
-        List<Tile.SymbolType> targetSymbols;
-
-        do
+        List<Tile.SymbolType> symbols = new List<Tile.SymbolType>();
+        for (int i = 0; i < total; i++)
         {
-            playerSymbols = new List<Tile.SymbolType>(symbols);
-            targetSymbols = new List<Tile.SymbolType>(symbols);
+            symbols.Add(availableSymbols[i % availableSymbols.Count]);
+        }
 
-            ShuffleList(playerSymbols);
+        ShuffleList(symbols);
+        List<Tile.SymbolType> playerSymbols = new List<Tile.SymbolType>(symbols);
+        List<Tile.SymbolType> targetSymbols = new List<Tile.SymbolType>(symbols);
+
+        if (total <= 9)
+        {
+            int maxAllowedOverlap = total / 4;
+            int overlapCount = total;
+            int tries = 0;
+            int maxTries = 1000;
+
+            while (overlapCount > maxAllowedOverlap && tries < maxTries)
+            {
+                int a = UnityEngine.Random.Range(0, total);
+                int b = UnityEngine.Random.Range(0, total);
+                (targetSymbols[a], targetSymbols[b]) = (targetSymbols[b], targetSymbols[a]);
+
+                overlapCount = 0;
+                for (int i = 0; i < total; i++)
+                {
+                    if (playerSymbols[i] == targetSymbols[i])
+                        overlapCount++;
+                }
+
+                tries++;
+            }
+
+            if (tries >= maxTries)
+            {
+                Debug.LogWarning("Max retries hit while trying to reduce overlaps. Proceeding anyway.");
+            }
+        }
+        else
+        {
             ShuffleList(targetSymbols);
-
-        } while (AreLayoutsEqual(playerSymbols, targetSymbols));
+        }
 
         int index = 0;
         for (int x = 0; x < gridWidth; x++)
         {
             for (int y = 0; y < gridHeight; y++)
             {
-                var type = playerSymbols[index];
-                Sprite sprite = (type == Tile.SymbolType.Circle) ? circleSprite : squareSprite;
-                tiles[x, y].SetSymbol(sprite, type);
+                Tile.SymbolType pType = playerSymbols[index];
+                if (!symbolToSprite.TryGetValue(pType, out Sprite pSprite))
+                {
+                    Debug.LogError($"No sprite mapped for symbol: {pType}");
+                }
+                tiles[x, y].SetSymbol(pSprite, pType);
                 index++;
             }
         }
@@ -207,24 +285,40 @@ public class PuzzleManager : MonoBehaviour
         {
             for (int y = 0; y < gridHeight; y++)
             {
-                var type = targetSymbols[index];
-                Sprite sprite = (type == Tile.SymbolType.Circle) ? circleSprite : squareSprite;
-                targetTiles[x, y].SetSymbol(sprite, type);
+                Tile.SymbolType tType = targetSymbols[index];
+                if (!symbolToSprite.TryGetValue(tType, out Sprite tSprite))
+                {
+                    Debug.LogError($"No sprite mapped for symbol: {tType}");
+                }
+                targetTiles[x, y].SetSymbol(tSprite, tType);
                 index++;
             }
         }
-        ParCalculator solver = FindObjectOfType<ParCalculator>();
 
-        if (solver == null)
-        {
-            Debug.LogError("ParCalc not found in scene");
-        }
+        int totals = gridWidth * gridHeight;
+        int par = 0;
 
-        if (parText == null)
+        if (GameConfig.isStoryMode)
         {
-            Debug.LogWarning("partext not assigned in inspector");
+            par = levelPar;
+            Debug.Log($"Story mode level par loaded from JSON: {par}");
         }
-        int par = solver.CalculatePar(tiles, targetTiles) + 1;
+        else if (totals <= 9)
+        {
+            ParCalculator solver = FindObjectOfType<ParCalculator>();
+            if (solver == null)
+            {
+                Debug.LogError("ParCalculator not found in scene.");
+            }
+            else
+            {
+                par = solver.CalculatePar(tiles, targetTiles) + 1;
+            }
+        }
+        else
+        {
+            Debug.Log("Skipping par calculation for large grid in endless mode.");
+        }
 
         if (parText != null)
         {
@@ -247,10 +341,10 @@ public class PuzzleManager : MonoBehaviour
     {
         Vector2Int move = Vector2Int.zero;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow)) move = new Vector2Int(-1, 0);
-        if (Input.GetKeyDown(KeyCode.DownArrow)) move = new Vector2Int(1, 0);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) move = new Vector2Int(0, -1);
-        if (Input.GetKeyDown(KeyCode.RightArrow)) move = new Vector2Int(0, 1);
+        if (Input.GetKeyDown(KeyCode.UpArrow))    move = new Vector2Int(0, -1);
+        if (Input.GetKeyDown(KeyCode.DownArrow))  move = new Vector2Int(0, 1);
+        if (Input.GetKeyDown(KeyCode.LeftArrow))  move = new Vector2Int(-1, 0);
+        if (Input.GetKeyDown(KeyCode.RightArrow)) move = new Vector2Int(1, 0);
 
         if (move != Vector2Int.zero)
         {
@@ -316,7 +410,7 @@ public class PuzzleManager : MonoBehaviour
             if (!GameConfig.isStoryMode)
             {
                 stopEndlessPuzzleMusic();
-                StartCoroutine(RegeneratePuzzleAfterDelay(3f));
+                StartCoroutine(RegeneratePuzzleAfterDelay(0.2f));
             }
             else
             {
@@ -350,6 +444,7 @@ public class PuzzleManager : MonoBehaviour
     {
         TextAsset json = Resources.Load<TextAsset>($"Levels/{levelName}");
         LevelData data = JsonUtility.FromJson<LevelData>(json.text);
+        levelPar = data.par;
 
         ConfigureGrid(data.width, data.height);
 
@@ -362,8 +457,17 @@ public class PuzzleManager : MonoBehaviour
                 Tile.SymbolType pType = (Tile.SymbolType)System.Enum.Parse(typeof(Tile.SymbolType), data.playerSymbols[index]);
                 Tile.SymbolType tType = (Tile.SymbolType)System.Enum.Parse(typeof(Tile.SymbolType), data.targetSymbols[index]);
 
-                tiles[x, y].SetSymbol(pType == Tile.SymbolType.Circle ? circleSprite : squareSprite, pType);
-                targetTiles[x, y].SetSymbol(tType == Tile.SymbolType.Circle ? circleSprite : squareSprite, tType);
+                if (!symbolToSprite.TryGetValue(pType, out Sprite pSprite))
+                {
+                    Debug.LogError($"Missing sprite for symbol: {pType}");
+                }
+                tiles[x, y].SetSymbol(pSprite, pType);
+
+                if (!symbolToSprite.TryGetValue(tType, out Sprite tSprite))
+                {
+                    Debug.LogError($"Missing sprite for symbol: {tType}");
+                }
+                targetTiles[x, y].SetSymbol(tSprite, tType);
 
                 index++;
             }
@@ -449,11 +553,30 @@ public class PuzzleManager : MonoBehaviour
         }
         return true;
     }
+    void InitializeSymbolToSpriteMap()
+    {
+        symbolToSprite = new Dictionary<Tile.SymbolType, Sprite>();
+        foreach (var pair in symbolSpritePairs)
+        {
+            symbolToSprite[pair.symbol] = pair.sprite;
+        }
+    }
+
 
     void OnDisable()
     {
         stopEndlessPuzzleMusic();
     }
+
+    private void ShowTutorialMessage(string message)
+    {
+        if (tutorialPopup != null && tutorialText != null)
+        {
+            tutorialText.text = message;
+            tutorialPopup.SetActive(true);
+        }
+    }
+
 
     [System.Serializable]
     public class LevelData
@@ -462,5 +585,7 @@ public class PuzzleManager : MonoBehaviour
         public int height;
         public List<string> playerSymbols;
         public List<string> targetSymbols;
+        public int par;
     }
+
 }

@@ -12,11 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1756059957aca64a81299d7012bfb50, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  rawText: "[NARRATOR] Heh {WAIT}\n\n{START_PUZZLE}\n\n[SPIRIT] Who, {WAIT} what
+  rawText: "[NARRATOR] In the Home Grounds, {WAIT} The Lyrian Spirit awaits the judgement
+    of She Who Mounds: {WAIT}{WAIT} All-Mother is here.\r\n\r\n[SPIRIT] Majesty?\r\n\r\n[MOTHER]
+    Do you realize what you put yourself into? {WAIT} Do you know what happens when
+    the dreams of ADULTS are molded?\r\n\r\n[SPIRIT] Yeah, yeah. {WAIT} I know. {WAIT}
+    But she seemed so\u2026{WAIT} so\u2026{CONTINUE}\r\n\r\n[MOTHER] So what? {WAIT}
+    The dreams acting on one another is how we make fashion! {WAIT} Please don\u2019t
+    change them up for your sake, {WAIT} child.\r\n\r\n[SPIRIT] (YELL) No! {WAIT}
+    I\u2019m not doing it for their sake!\r\n\r\n[NARRATOR] (NORMAL) A cry could
+    be heard. {WAIT} One just had to ruin the time for mead.\r\n\r\n[MOTHER] You
+    know the consequences, {WAIT} child.\r\n\r\n[SPIRIT] Then you must know how little
+    I care to break them.\r\n\r\n{START_PUZZLE}\r\n\r\n[SPIRIT] Who, {WAIT} what
     are you?\r\n\r\n[???] You know, {WAIT} nightmares are the stuff of dreams. {WAIT}
     Come find me, {WAIT} then maybe you can find your dream.\r\n\r\n[SPIRIT] No no,
-    {WAIT} (YELL) WAIT!\r\n\r\n[NARRATOR] (NORMAL) Just as the entity voiced its
-    claim, {WAIT} did it disappear without a trace.\n\r"
+    {WAIT} WAIT!\r\n\r\n[NARRATOR] Just as the entity voiced its claim, {WAIT} did
+    it disappear without a trace.\r"
   characters:
   - {fileID: 11400000, guid: ffa916b540177e3438098edccea3f931, type: 2}
   - {fileID: 11400000, guid: 35852a5d02f25934ea67f25e3046130c, type: 2}
